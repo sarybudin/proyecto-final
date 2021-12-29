@@ -1,12 +1,11 @@
 import logging
 import requests
 import json
-import pytz
+
 
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-from datetime import datetime, tzinfo
-from dateutil import tz
+
 
 # Enable logging
 logging.basicConfig(
@@ -29,27 +28,31 @@ def start(update: Update, context: CallbackContext) -> None:
 
 def store(update: Update, context: CallbackContext) -> None:
     emotion = update.message.text
+    """
     print(emotion)
     print("Id de usuario " + str(update.message.chat.id))
     print("Nombre: " + update.message.chat.first_name + " " + update.message.chat.last_name)
     print("Fecha: + " + str(update.message.date))
     """
-    # Date conversion:
-    ## dt_str  = "28/12/2021 8:18:19"
-    dt_str = str(update.message.date)
-    ## format  = "%d/%m/%Y %H:%M:%S"
-    format  = "/%Y/%m/%d %H:%M:%S"
-    dt_utc = datetime.strptime(dt_str, format)
-    dt_utc = dt_utc.replace(tzinfo=pytz.UTC)
-    local_zone = tz.tzlocal()
-    dt_local = dt_utc.astimezone(local_zone)
-    local_time_str = dt_local.strftime(format)
-    ##################################### 
-    """
+    print(update.message.chat.id)
     if emotion == "😃" or emotion == "😐" or emotion == "😞":
         update.message.reply_text("Gracias. Almacenaré tu estado de ánimo en la base de datos")
+        #Post a la API
+        url = "https://3001-olive-crane-ywa4x9pj.ws-us25.gitpod.io/api/bot"
+        payload = json.dumps({
+            "Paciente": update.message.chat.id,
+            "Respuesta": emotion,
+            "Fecha": str(update.message.date)
+        })
+        headers = {
+            'Content-Type': 'application/json'
+        }
+        response = requests.request("POST", url, headers=headers, data=payload)
+
     else: 
         update.message.reply_text("Tu mensaje no me permite almacenar tu emoción, intenta de nuevo, por favor")
+
+
 def all_messages(update: Update, context: CallbackContext) -> None:
     """Show all messages to the user message."""
     url = "https://3001-apricot-scorpion-ulosbcd8.ws-us25.gitpod.io/api/message"
