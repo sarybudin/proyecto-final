@@ -30,14 +30,15 @@ class Paciente(db.Model):
     fecha_nacimiento = db.Column(db.Date, nullable=True)
     nombre = db.Column(db.String(120), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    direccion = db.Column(db.String(120), unique=True, nullable=True)
-    diagnóstico = db.Column(db.String(120), unique=True, nullable=True)
-    estado_civil = db.Column(db.String(120), unique=True, nullable=True)
-    nro_hijos = db.Column(db.Integer, unique=True, nullable=True)
-    nacionalidad = db.Column(db.String(120), unique=True, nullable=True)
+    direccion = db.Column(db.String(120), nullable=True)
+    diagnóstico = db.Column(db.String(120), nullable=True)
+    estado_civil = db.Column(db.String(120), nullable=True)
+    nro_hijos = db.Column(db.Integer, nullable=True)
+    nacionalidad = db.Column(db.String(120), nullable=True)
+    username = db.Column(db.String(120), nullable=True)
+
     psicologo = db.relationship("Psicologo", back_populates="paciente")
     bot = db.relationship("Bot", back_populates="paciente")
-    username = db.Column(db.String(120), unique=True, nullable=False)
 
     def serialize(self):
         return {
@@ -70,7 +71,16 @@ class Bot(db.Model):
             "id": self.id,
             "respuesta": self.respuesta,
             "paciente_id": self.paciente_id,
-             "fecha": self.fecha,
+            "fecha": self.fecha,
+        }
+    
+    def serializeAll(self):
+        return {
+            "id": self.id,
+            "respuesta": self.respuesta,
+            "paciente_id": self.paciente_id,
+            "fecha": self.fecha,
+            "paciente" : self.paciente.serialize(),
         }
     
 

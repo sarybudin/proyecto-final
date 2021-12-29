@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db
+from api.models import db,Psicologo, Paciente, Bot
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -16,3 +16,34 @@ def handle_hello():
     }
 
     return jsonify(response_body), 200
+
+@api.route('/bot', methods=['GET'])
+def bot():
+    bots= Bot.query.all()
+    bots=list(map(lambda x: x.serialize(),bots))
+
+    return jsonify(bots), 200
+
+@api.route('/botAll', methods=['GET'])
+def botAll():
+    bots= Bot.query.all()
+    bots=list(map(lambda x: x.serializeAll(),bots))
+
+    return jsonify(bots), 200
+
+@api.route('/bot', methods=['POST'])
+def addbot():
+    body = request.get_json()
+    # SELECT * FROM PACIENTE WHERE username = body['username']
+    paciente = Paciente.query.\
+    filter(Paciente.username.like(body['username'])).\
+    one()
+
+    newBot = Bot(
+        respuesta = body['respuesta'],
+        paciente_id = paciente.id,
+        fecha = body['fecha'],
+    )
+    db.session.add(newBot)
+    db.session.commit()
+    return "OK", 200
