@@ -29,26 +29,27 @@ def start(update: Update, context: CallbackContext) -> None:
 def store(update: Update, context: CallbackContext) -> None:
     emotion = update.message.text
     """
+    Verificando dónde está la información
     print(emotion)
     print("Id de usuario " + str(update.message.chat.id))
     print("Nombre: " + update.message.chat.first_name + " " + update.message.chat.last_name)
     print("Fecha: + " + str(update.message.date))
     """
-    print(update.message.chat.id)
+    ###print(update.message.chat.id)
     if emotion == "😃" or emotion == "😐" or emotion == "😞":
         update.message.reply_text("Gracias. Almacenaré tu estado de ánimo en la base de datos")
         #Post a la API
-        url = "https://3001-olive-crane-ywa4x9pj.ws-us25.gitpod.io/api/bot"
+        url = "https://3001-rose-haddock-94adoe3x.ws-us25.gitpod.io/api/bot"
         payload = json.dumps({
-            "Paciente": update.message.chat.id,
-            "Respuesta": emotion,
-            "Fecha": str(update.message.date)
+            "username": update["message"]["chat"]["username"],
+            "respuesta": emotion,
+            "fecha": str(update.message.date)
         })
         headers = {
             'Content-Type': 'application/json'
         }
         response = requests.request("POST", url, headers=headers, data=payload)
-
+        print("Intenté agregar información a la API")
     else: 
         update.message.reply_text("Tu mensaje no me permite almacenar tu emoción, intenta de nuevo, por favor")
 

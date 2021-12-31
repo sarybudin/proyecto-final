@@ -38,12 +38,17 @@ def addbot():
     paciente = Paciente.query.\
     filter(Paciente.username.like(body['username'])).\
     one()
-
-    newBot = Bot(
-        respuesta = body['respuesta'],
-        paciente_id = paciente.id,
-        fecha = body['fecha'],
-    )
-    db.session.add(newBot)
-    db.session.commit()
-    return "OK", 200
+    if body != None:
+        respuesta = body["respuesta"]
+        paciente_id = paciente.id
+        fecha = body["fecha"]
+        newBot = Bot(
+        respuesta = respuesta,
+        paciente_id = paciente_id,
+        fecha = fecha,
+        )
+        db.session.add(newBot)
+        db.session.commit()
+        return "Información agregada a Base de Datos", 200
+    else:
+        return "Debes enviar información"
