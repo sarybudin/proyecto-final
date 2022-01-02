@@ -9,17 +9,13 @@ export const HomeCard = (props) => {
   //  const { store, actions } = useContext(Context);
 
   return (
-    <Card className="Card">
-      <CardImg
-        className="CardImg"
-        alt="Card image cap"
-        src="https://dummyimage.com/400x300/000/fff.png&text=Imagen+1"
-        top
-        width="100%"
-      />
+    <Card className="Card px-0">
+      <CardImg className="CardImg" src={props.image} top width="100%" />
       <CardBody>
-        <CardTitle tag="h5">{props.title}</CardTitle>
-        <CardText>{props.text}</CardText>
+        <CardTitle className="CardTitle" tag="h5">
+          {props.title}
+        </CardTitle>
+        <CardText className="CardText">{props.text}</CardText>
       </CardBody>
     </Card>
   );
