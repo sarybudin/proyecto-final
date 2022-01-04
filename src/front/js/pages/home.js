@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import card1 from "../../img/card1.jpg";
 import card2 from "../../img/card2.jpg";
@@ -11,12 +12,8 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="container-fluid mt-3 text-center">
-      <div className="row text-center" id="title">
-        <span>Áni</span>
-        <span id="bot">bot</span>
-      </div>
-      <div className="row mt-4 mb-5 d-flex justify-content-around" id="myrow">
+    <div className="container-fluid mt-1 text-center">
+      <div className="row mb-5 d-flex justify-content-around" id="myrow">
         <HomeCard
           title="¿Cómo se siente hoy?"
           text="Recibe a diario el estado de ánimo de tus pacientes"
@@ -36,9 +33,11 @@ export const Home = () => {
         />
       </div>
       <div>
-        <Button className="mb-5" size="lg" id="button">
-          Continuar
-        </Button>
+        <Link to="/graficos">
+          <Button className="mb-5" size="lg" id="button">
+            Continuar
+          </Button>
+        </Link>
       </div>
     </div>
   );
