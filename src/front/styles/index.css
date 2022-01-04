@@ -2,7 +2,6 @@
     General Styles used on every website (Don't Repeat Yourself)
 */
 body {
-<<<<<<< HEAD
   background: rgb(203, 243, 240);
   background: linear-gradient(
     45deg,
@@ -14,7 +13,4 @@ body {
   margin: 0;
   background-repeat: no-repeat;
   background-attachment: fixed;
-=======
-  background: #cbf3f0;
->>>>>>> develop
 }

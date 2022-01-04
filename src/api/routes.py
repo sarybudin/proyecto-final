@@ -38,7 +38,6 @@ def addbot():
     paciente = Paciente.query.\
     filter(Paciente.username.like(body['username'])).\
     one()
-<<<<<<< HEAD
     if body != None:
         respuesta = body["respuesta"]
         paciente_id = paciente.id
@@ -53,7 +52,6 @@ def addbot():
         return "Información agregada a Base de Datos", 200
     else:
         return "Debes enviar información"
-=======
 
     newBot = Bot(
         respuesta = body['respuesta'],
@@ -82,4 +80,3 @@ def getdatagrafico():
     },result))
     
     return jsonify(result), 200
->>>>>>> develop
