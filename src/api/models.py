@@ -38,8 +38,8 @@ class Paciente(db.Model):
     username = db.Column(db.String(120), nullable=True)
 
     psicologo = db.relationship("Psicologo", back_populates="paciente")
-    bot = db.relationship("Bot", back_populates="paciente")
-
+    bot = db.relationship("Bot", back_populates="paciente", uselist=True)
+    
     def serialize(self):
         return {
             "id": self.id,
@@ -54,7 +54,12 @@ class Paciente(db.Model):
             "nro_hijos": self.nro_hijos,
             "nacionalidad": self.nacionalidad,
             "username": self.username,
-            
+        }
+    def serializeAll(self):
+        return {
+            "nombre": self.nombre,
+            "username": self.username,
+            "bot" : list(map(lambda x: x.serialize(),self.bot)),
         }
 
 

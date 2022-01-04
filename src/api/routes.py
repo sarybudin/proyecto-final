@@ -47,3 +47,22 @@ def addbot():
     db.session.add(newBot)
     db.session.commit()
     return "OK", 200
+
+@api.route('/getDataGrafico', methods=['GET'])
+def getdatagrafico():
+    result = Paciente.query.\
+            with_entities(Paciente.nombre, Bot.respuesta, db.func.count(Bot.respuesta), db.extract('year', Bot.fecha), db.extract('month', Bot.fecha)).\
+            join(Bot, Paciente.id == Bot.paciente_id).\
+            filter(Bot.fecha >= db.text('current_date - interval \'3 month\'')).\
+            group_by(Paciente.id, Bot.respuesta, Bot.fecha).\
+            order_by(db.asc(Bot.fecha)).\
+            all()
+    result=list(map(lambda x: {
+        "nombre": list(x)[0],
+        "respuesta": list(x)[1],
+        "nrorespuesta": list(x)[2],
+        "anno": int(list(x)[3]),
+        "mes": int(list(x)[4])
+    },result))
+    
+    return jsonify(result), 200
