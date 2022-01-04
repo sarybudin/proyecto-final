@@ -36,7 +36,7 @@ export const Home = () => {
         />
       </div>
       <div>
-        <Button size="lg" id="button">
+        <Button className="mb-5" size="lg" id="button">
           Continuar
         </Button>
       </div>
