@@ -1,0 +1,40 @@
+.cardgrafico {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 1px solid #ebebeb;
+  margin: 15px;
+  padding: 15px;
+  background: white;
+}
+.cardgrafico .title {
+  display: flex;
+  justify-content: flex-start;
+  padding-bottom: 35px;
+}
+.cardgrafico .body {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.cardgrafico .body div {
+  border: 1px solid #ebebeb;
+  padding: 5px;
+}
+.cardgrafico .body div:nth-child(1) {
+  width: 65%;
+}
+.cardgrafico .body div:nth-child(2) {
+  width: 25%;
+}
+.cardgrafico .details {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-align: left;
+  margin-top: 15px;
+
+}
+.cardgrafico .details li {
+  list-style-type: none;
+}

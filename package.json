@@ -73,9 +73,17 @@
 		]
 	},
 	"dependencies": {
+		"chart.js": "^3.7.0",
+		"faker": "^5.5.3",
 		"prop-types": "^15.6.1",
+<<<<<<< HEAD
 		"react": "^16.14.0",
 		"react-dom": "^16.14.0",
+=======
+		"react": "^16.8.4",
+		"react-chartjs-2": "^4.0.0",
+		"react-dom": "^16.8.4",
+>>>>>>> develop
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0",
 		"reactstrap": "^9.0.1"
