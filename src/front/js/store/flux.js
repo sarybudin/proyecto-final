@@ -43,29 +43,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if( dataRes.respuesta == "\ud83d\ude03" ) { // :)
 
 						if(dataRes.mes == mes1)
-							final[nombre][0][0] = dataRes.nrorespuesta;
+							final[nombre][0][0] += dataRes.nrorespuesta;
 						else if(dataRes.mes == mes2)
-							final[nombre][0][1] = dataRes.nrorespuesta;
+							final[nombre][0][1] += dataRes.nrorespuesta;
 						else if(dataRes.mes == mes3)
-							final[nombre][0][2] = dataRes.nrorespuesta;
+							final[nombre][0][2] += dataRes.nrorespuesta;
 
 					} else if( dataRes.respuesta == "\ud83d\ude10" ) { // :|
 
 						if(dataRes.mes == mes1)
-							final[nombre][1][0] = dataRes.nrorespuesta;
+							final[nombre][1][0] += dataRes.nrorespuesta;
 						else if(dataRes.mes == mes2)
-							final[nombre][1][1] = dataRes.nrorespuesta;
+							final[nombre][1][1] += dataRes.nrorespuesta;
 						else if(dataRes.mes == mes3)
-							final[nombre][1][2] = dataRes.nrorespuesta;
+							final[nombre][1][2] += dataRes.nrorespuesta;
 						
 					} else if( dataRes.respuesta == "\ud83d\ude1e" ) { // :(
 
 						if(dataRes.mes == mes1)
-							final[nombre][2][0] = dataRes.nrorespuesta;
+							final[nombre][2][0] += dataRes.nrorespuesta;
 						else if(dataRes.mes == mes2)
-							final[nombre][2][1] = dataRes.nrorespuesta;
+							final[nombre][2][1] += dataRes.nrorespuesta;
 						else if(dataRes.mes == mes3)
-							final[nombre][2][2] = dataRes.nrorespuesta;
+							final[nombre][2][2] += dataRes.nrorespuesta;
 						
 					}
 				})
