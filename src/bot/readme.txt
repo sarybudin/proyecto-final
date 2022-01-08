@@ -5,3 +5,10 @@ pip install python-telegram-bot
 2) Run your preffered bot with
 
 python <botname>.py
+
+
+____________
+
+probando:
+
+pip install pyTelegramBotAPI

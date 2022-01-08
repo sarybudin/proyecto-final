@@ -1,7 +1,7 @@
 import logging
 import json, requests
 
-from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update
+from telegram import ReplyKeyboardMarkup, ReplyKeyboardRemove, Update, InlineKeyboardMarkup, InlineKeyboardButton
 from telegram.ext import (
     Updater,
     CommandHandler,
@@ -9,6 +9,7 @@ from telegram.ext import (
     Filters,
     ConversationHandler,
     CallbackContext,
+    CallbackQueryHandler
 )
 
 # Enable logging
@@ -24,37 +25,48 @@ emotion = ""
 
 def start(update: Update, context: CallbackContext) -> int:
     """Incia la conversación y pide el emoji."""
-    reply_keyboard = [['😃', '😐', '😞']]
+    ##teclado = [['😃', '😐', '😞']]
+    keyboard = [
+        [
+            InlineKeyboardButton("😃", callback_data='Feliz'),
+            InlineKeyboardButton("😐", callback_data='Regular'),
+            InlineKeyboardButton("😞", callback_data='Triste')
+        ]
+    ]
 
     update.message.reply_text(
         'Por favor, envía tu emoji: 😃, 😐, 😞',
-        reply_markup=ReplyKeyboardMarkup(
-            reply_keyboard, one_time_keyboard=True, input_field_placeholder='Feliz, regular o triste?'
+        reply_markup=InlineKeyboardMarkup(
+            keyboard, one_time_keyboard=True
         ),
     )
 
     return EMOTION
 
+def button(update: Update, context: CallbackContext) -> int:
+    """Parses the CallbackQuery and updates the message text."""
+    query = update.callback_query
+
+    # CallbackQueries need to be answered, even if no notification to the user is needed
+    # Some clients may have trouble otherwise. See https://core.telegram.org/bots/api#callbackquery
+    query.answer()
+    print(update)
 
 def comment(update: Update, context: CallbackContext) -> int:
     """Almacena el emoji y pide el comentario."""
     user = update.message.from_user
     emotion = update.message.text
     logger.info("Emocion de %s: %s", user.first_name, update.message.text)
-    if emotion == "😃" or emotion == "😐" or emotion == "😞":
-        update.message.reply_text(
+    update.message.reply_text(
             '¿Quieres agregar un comentario a tu emoción?')
-        return COMMENT
-    else:
-        update.message.reply_text(
-            'Con esa respuesta no puedo almacenar tu emoción')
+    return COMMENT
 
 
 def post(update: Update, context: CallbackContext) -> int:
-    """Stores the photo and asks for a location."""
+    """Almacena el comentario y hace el post a la API"""
     user = update.message.from_user
     comment = update.message.text
-    logger.info("Comment of %s: %s", user.first_name, comment)
+    logger.info("Comentario de %s: %s", user.first_name, comment)
     update.message.reply_text(
         'Gracias. Almacenaré tu emoción y comentario.')
     #Post a la API
@@ -88,7 +100,7 @@ def cancel(update: Update, context: CallbackContext) -> int:
 def main() -> None:
     """Run the bot."""
     # Create the Updater and pass it your bot's token.
-    updater = Updater("5095765162:AAGmjvUuuef7gWk7Qg57-gt0vogPfCSntH4")
+    updater = Updater("5063497991:AAEX_bLGzoIzyPkC2gWBU7kZsjIvuvM2Pds")
 
     # Get the dispatcher to register handlers
     dispatcher = updater.dispatcher
@@ -97,11 +109,13 @@ def main() -> None:
     conv_handler = ConversationHandler(
         entry_points=[CommandHandler('start', start)],
         states={
-            EMOTION: [MessageHandler(Filters.regex('^(😃|😐|😞)$'), comment)],
+            EMOTION: [MessageHandler(Filters.regex('^(Feliz|Regular|Triste)$'), comment)],
             COMMENT: [MessageHandler(Filters.text & ~Filters.command, post)],
         },
         fallbacks=[CommandHandler('cancel', cancel)],
     )
+
+    
 
     dispatcher.add_handler(conv_handler)
 
