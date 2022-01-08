@@ -71,8 +71,9 @@ const Formulario = () => {
                     name="diagnostico"
                     onChange={handleInputChange} />
                 </div>
-                <div>
-                    <button className="btn btn-primary" type="submit" justify-content="flex-end">Crear</button>
+                <div className="d-grid gap-2 col-6 mx-auto">
+                    <br></br>
+                    <button class="btn btn-primary" type="submit">Crear</button>
                 </div>
                 
             </form>
