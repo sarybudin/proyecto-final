@@ -9,6 +9,8 @@ python <botname>.py
 
 ____________
 
-probando:
+Para el bot conversacional con decoradores:
 
-pip install pyTelegramBotAPI
+1) pip install pyTelegramBotAPI
+
+2) python decorador.py

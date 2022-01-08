@@ -20,7 +20,8 @@ def upload_info(emotion, comment)
         payload = json.dumps({
             "username": update["message"]["chat"]["username"],
             "respuesta": emotion,
-            "fecha": str(update.message.date)
+            "fecha": str(update.message.date),
+            "comment": comment
         })
         headers = {
             'Content-Type': 'application/json'
