@@ -44,7 +44,7 @@ export const Graficos = () => {
   useEffect(() => {
     actions.obtenerDatosGraficos();
   }, []);
-			
+
   // Bar
   const optionsBar = {
     responsive: true,
@@ -66,64 +66,71 @@ export const Graficos = () => {
     Tooltip,
     Legend
   );
-  
+
   //Pie
   ChartJS.register(ArcElement, Tooltip, Legend);
-  
+
   return (
-    <div className="text-center mt-5">
-      {store.graficoTresMeses.map( (valor, key) => <div className="cardgrafico">
-        <div className="title" key={key}>
-          <label>
-            <b>{valor.nombre}</b>
-          </label>
-        </div>
-        <div className="body">
-          <div>
-            <Bar options={optionsBar} data={{
-    labels: getLabels(),
-    datasets: [
-      {
-        label: "😃: Alegre",
-        data: valor.data[0],
-        backgroundColor: "#FFFF70",
-      },
-      {
-        label: "😐: Regular",
-        data: valor.data[1],
-        backgroundColor: "#CBF3F0",
-      },
-      {
-        label: "😞: Triste",
-        data: valor.data[2],
-        backgroundColor: "#FF9F1C",
-      },
-    ],
-  }} />
+    <div className="text-center mt-1">
+      {store.graficoTresMeses.map((valor, key) => (
+        <div className="cardgrafico">
+          <div className="title" key={key}>
+            <label>
+              <b>{valor.nombre}</b>
+            </label>
           </div>
-          <div>
-            <Pie data={{
-    labels: ["😃: Alegre", "😐: Regular", "😞: Triste"],
-    datasets: [
-      {
-        label: "# of Votes",
-        data: valor.dataPie,
-        backgroundColor: ["#FFFF70", "#CBF3F0", "#FF9F1C"],
-        borderColor: ["#FFFF70", "#CBF3F0", "#FF9F1C"],
-        borderWidth: 1,
-      },
-    ],
-  }} />
+          <div className="body">
+            <div>
+              <Bar
+                options={optionsBar}
+                data={{
+                  labels: getLabels(),
+                  datasets: [
+                    {
+                      label: "😃: Alegre",
+                      data: valor.data[0],
+                      backgroundColor: "#FFFF70",
+                    },
+                    {
+                      label: "😐: Regular",
+                      data: valor.data[1],
+                      backgroundColor: "#CBF3F0",
+                    },
+                    {
+                      label: "😞: Triste",
+                      data: valor.data[2],
+                      backgroundColor: "#FF9F1C",
+                    },
+                  ],
+                }}
+              />
+            </div>
+            <div>
+              <Pie
+                data={{
+                  labels: ["😃: Alegre", "😐: Regular", "😞: Triste"],
+                  datasets: [
+                    {
+                      label: "# of Votes",
+                      data: valor.dataPie,
+                      backgroundColor: ["#FFFF70", "#CBF3F0", "#FF9F1C"],
+                      borderColor: ["#FFFF70", "#CBF3F0", "#FF9F1C"],
+                      borderWidth: 1,
+                    },
+                  ],
+                }}
+              />
+            </div>
+          </div>
+          <div className="details">
+            <ul>
+              <li>😃: Alegre</li>
+              <li>😐: Regular</li>
+              <li>😞: Triste</li>
+            </ul>
           </div>
         </div>
-        <div className="details">
-          <ul>
-            <li>😃: Alegre</li>
-            <li>😐: Regular</li>
-            <li>😞: Triste</li>
-          </ul>
-        </div>
-      </div>)}
+      ))}
     </div>
   );
 };

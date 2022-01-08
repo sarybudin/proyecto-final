@@ -1,26 +1,44 @@
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import card1 from "../../img/card1.jpg";
+import card2 from "../../img/card2.jpg";
+import card3 from "../../img/card3.jpg";
 import "../../styles/home.css";
+import { HomeCard } from "../component/card";
+import { Button } from "reactstrap";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
+  return (
+    <div className="container-fluid mt-1 text-center">
+      <div className="row mb-5 d-flex justify-content-around" id="myrow">
+        <HomeCard
+          title="¿Cómo se siente hoy?"
+          text="Recibe a diario el estado de ánimo de tus pacientes"
+          image={card1}
+        />
+
+        <HomeCard
+          title="Complementa tu Análisis"
+          text="Suma métricas y gráficas de simple interpretación a tus diagnósticos"
+          image={card2}
+        />
+
+        <HomeCard
+          title="Lo que se viene"
+          text="Establece relaciones entre palabras clave y estados de ánimo"
+          image={card3}
+        />
+      </div>
+      <div>
+        <Link to="/graficos">
+          <Button className="mb-5" size="lg" id="button">
+            Continuar
+          </Button>
+        </Link>
+      </div>
+    </div>
+  );
 };

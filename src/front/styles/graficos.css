@@ -3,7 +3,7 @@
   flex-direction: column;
   justify-content: flex-start;
   border: 1px solid #ebebeb;
-  margin: 15px;
+  margin: 0px 15px 15px 15px;
   padding: 15px;
   background: white;
 }
@@ -32,8 +32,6 @@
   flex-direction: column;
   justify-content: flex-start;
   text-align: left;
-  margin-top: 15px;
-
 }
 .cardgrafico .details li {
   list-style-type: none;
