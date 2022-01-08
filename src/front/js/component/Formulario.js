@@ -72,7 +72,7 @@ const Formulario = () => {
                     onChange={handleInputChange} />
                 </div>
                 <div>
-                    <button className="btn btn-primary" type="submit">Button</button>
+                    <button className="btn btn-primary" type="submit" justify-content="flex-end">Crear</button>
                 </div>
                 
             </form>
