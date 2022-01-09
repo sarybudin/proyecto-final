@@ -1,6 +1,4 @@
-body {
-  background-color: transparent;
-}
+@import url("https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Montserrat:wght@600;700&family=Oswald&display=swap");
 
 #title {
   font-family: "Arvo", serif;

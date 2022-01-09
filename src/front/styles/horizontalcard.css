@@ -1,0 +1,13 @@
+.card {
+  height: 8rem;
+  width: 100%;
+}
+
+#img-space {
+  height: 8rem;
+}
+
+.img-fluid {
+  object-fit: contain;
+  height: 95%;
+}
