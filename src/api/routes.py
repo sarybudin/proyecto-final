@@ -42,10 +42,12 @@ def addbot():
         respuesta = body["respuesta"]
         paciente_id = paciente.id
         fecha = body["fecha"]
+        comentario = body["comentario"]
         newBot = Bot(
         respuesta = respuesta,
         paciente_id = paciente_id,
         fecha = fecha,
+        comentario = comentario
         )
         db.session.add(newBot)
         db.session.commit()
