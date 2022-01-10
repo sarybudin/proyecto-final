@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import { Button } from "reactstrap";
 import { HorizontalCard } from "../component/horizontalcard";
 import { SessionCard } from "../component/sessioncard";
+import { NewUserModal } from "../component/newusermodal";
 import "../../styles/newhome.css";
 import card1 from "../../img/card1.jpg";
 import card2 from "../../img/card2.jpg";
@@ -19,7 +19,7 @@ export const NewHome = () => {
         <span id="bot">bot</span>
       </div>
       <div className="container-fluid row d-flex justify-content-around">
-        <div className="d-flex col-6 align-items-center flex-column">
+        <div className="d-flex col-5 align-items-center flex-column">
           <HorizontalCard
             title="¿Cómo se siente hoy?"
             text="Recibe a diario el estado de ánimo de tus pacientes"
@@ -39,7 +39,8 @@ export const NewHome = () => {
         <div className="d-flex col-4 align-items-center">
           <SessionCard
             text="Aquí va el formulario de usuario y contraseña"
-            button="Iniciar Sesión"
+            loginButton="Iniciar Sesión"
+            createButton="Crear nuevo usuario"
           />
         </div>
       </div>

@@ -2,10 +2,27 @@
   height: 22rem;
 }
 
+#inputArea {
+  text-align: center;
+}
+
 .loginInput {
-  margin: 10px 5px 10px 5px;
+  margin: 15px 5px 8px 5px;
+  width: 90%;
 }
 
 a {
   text-decoration: none;
+}
+
+#loginButton {
+  margin: 8px 0px 15px 0px;
+}
+
+hr {
+  margin-top: -4px;
+  width: 96%;
+  background-color: black;
+  height: 1px;
+  margin-bottom: 28px;
 }

@@ -10,13 +10,17 @@ export const HorizontalCard = (props) => {
   return (
     <div className="card mb-3">
       <div className="row g-0">
-        <div className="col-md-4" id="img-space">
-          <img src={props.image} className="img-fluid rounded-start" />
+        <div className="col-md-3" id="img-space">
+          <img src={props.image} className="img-fluid" />
         </div>
-        <div className="col-md-8">
+        <div className="col-md-9">
           <div className="card-body">
-            <h5 className="card-title">{props.title}</h5>
-            <p className="card-text">{props.text}</p>
+            <h5 className="card-title" id="hcardTitle">
+              {props.title}
+            </h5>
+            <p className="card-text" id="hcardText">
+              {props.text}
+            </p>
           </div>
         </div>
       </div>

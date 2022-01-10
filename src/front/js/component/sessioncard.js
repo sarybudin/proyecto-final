@@ -2,21 +2,13 @@ import React, { useContext } from "react";
 import PropTypes from "prop-types";
 // import { Context } from "../store/appContext";
 import "../../styles/sessioncard.css";
-import {
-  Card,
-  CardBody,
-  CardTitle,
-  CardHeader,
-  CardFooter,
-  CardText,
-  Button,
-  Input,
-} from "reactstrap";
+import { Card, CardBody, CardText, Button, Input } from "reactstrap";
+import { NewUserModal } from "./newusermodal";
 
 export const SessionCard = (props) => {
   return (
     <Card className="session-body">
-      <CardBody>
+      <CardBody className="d-flex align-items-center flex-column">
         <Input
           className="loginInput"
           id="userEmail"
@@ -31,15 +23,18 @@ export const SessionCard = (props) => {
           placeholder="Contraseña"
           type="password"
         />
-        <Button>{props.button}</Button>
+        <Button id="loginButton">{props.loginButton}</Button>
         <CardText>
           <a href="">¿Olvidaste tu contraseña?</a>
         </CardText>
+        <hr></hr>
+        <NewUserModal />
       </CardBody>
     </Card>
   );
 };
 
 SessionCard.propTypes = {
-  button: PropTypes.string,
+  loginButton: PropTypes.string,
+  createButton: PropTypes.string,
 };
