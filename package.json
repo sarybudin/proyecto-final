@@ -73,6 +73,9 @@
 		]
 	},
 	"dependencies": {
+		"@rpldy/upload-button": "^0.16.2",
+		"@rpldy/upload-preview": "^0.16.2",
+		"@rpldy/uploady": "^0.16.2",
 		"chart.js": "^3.7.0",
 		"faker": "^5.5.3",
 		"prop-types": "^15.6.1",

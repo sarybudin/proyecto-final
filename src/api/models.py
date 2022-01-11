@@ -54,6 +54,7 @@ class Paciente(db.Model):
             "nro_hijos": self.nro_hijos,
             "nacionalidad": self.nacionalidad,
             "username": self.username,
+            "nombrePsicologo": self.psicologo.nombre
         }
     def serializeAll(self):
         return {

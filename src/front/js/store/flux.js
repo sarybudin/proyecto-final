@@ -15,12 +15,28 @@ const getState = ({ getStore, getActions, setStore }) => {
         },
       ],
       graficoTresMeses: [],
+	  ficha: undefined,
     },
     actions: {
-      obtenerDatosGraficos: async () => {
+	  getFicha: async (idPaciente) => {
 		try {
 			let response = await fetch(
-				"https://3001-bronze-halibut-tgaoqsl0.ws-us25.gitpod.io/api/getDataGrafico",
+				"https://3001-bronze-halibut-tgaoqsl0.ws-us25.gitpod.io/api/paciente/"+(idPaciente? idPaciente : 0),
+				{
+				  method: "GET",
+				  redirect: "follow",
+				}
+			  ).then((response) => response.json());
+			
+			setStore({ ficha: response })
+		} catch (error) {
+			setStore({ ficha: undefined })
+		}
+	  },
+      obtenerDatosGraficos: async (idPaciente) => {
+		try {
+			let response = await fetch(
+				"https://3001-bronze-halibut-tgaoqsl0.ws-us25.gitpod.io/api/getDataGrafico/"+(idPaciente? idPaciente : 0),
 				{
 				  method: "GET",
 				  redirect: "follow",

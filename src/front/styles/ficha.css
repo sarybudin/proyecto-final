@@ -1,0 +1,32 @@
+.padre {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 20px;
+}
+.ficha {
+  border: solid 1px #19743b;
+  padding: 20px;
+  margin-bottom: 25px;
+}
+.foto {
+  border: solid 1px#19743b;
+  display: flex;
+  align-content: flex-start;
+  justify-content: space-around;
+  padding-top: 10px;
+}
+.foto img {
+  width: 100px;
+  height: 100px;
+}
+.informacion {
+  border: solid 1px #19743b;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.lista {
+  border: solid 1px #19743b;
+  padding: 20px;
+}
