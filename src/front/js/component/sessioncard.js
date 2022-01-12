@@ -25,7 +25,9 @@ export const SessionCard = (props) => {
         />
         <Button id="loginButton">{props.loginButton}</Button>
         <CardText>
-          <a href="">¿Olvidaste tu contraseña?</a>
+          <a href="" id="forgot">
+            ¿Olvidaste tu contraseña?
+          </a>
         </CardText>
         <hr></hr>
         <NewUserModal />

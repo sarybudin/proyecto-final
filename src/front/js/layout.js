@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 
-import { NewHome } from "./pages/newhome";
+import { Home } from "./pages/home";
 import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Graficos } from "./pages/graficos";
@@ -23,7 +23,7 @@ const Layout = () => {
         <ScrollToTop>
           <Switch>
             <Route exact path="/">
-              <NewHome />
+              <Home />
             </Route>
             <Route exact path="/demo">
               <Demo />

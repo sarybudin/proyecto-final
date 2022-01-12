@@ -31,16 +31,5 @@
   color: #2ec4b6;
   font-size: 18px;
   font-weight: bold;
-  text-shadow: 1px 1px 1px #fefefe;
-}
-
-#loginButton {
-  color: #ff9f1c;
-  font-weight: bold;
-  background-color: #2ec4b6;
-  border: 2px #ff9f1c solid;
-  text-shadow: 1px 1px 1px #000000;
-  -webkit-box-shadow: 0px 0px 15px 5px #feed53;
-  box-shadow: 0px 0px 15px 5px #feed53;
-  font-size: 22px;
+  text-shadow: 2px 2px 4px #cbf3f0;
 }

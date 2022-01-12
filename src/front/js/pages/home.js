@@ -1,43 +1,47 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
+import { HorizontalCard } from "../component/horizontalcard";
+import { SessionCard } from "../component/sessioncard";
+import "../../styles/home.css";
 import card1 from "../../img/card1.jpg";
 import card2 from "../../img/card2.jpg";
 import card3 from "../../img/card3.jpg";
-import "../../styles/home.css";
-import { HomeCard } from "../component/card";
-import { Button } from "reactstrap";
 
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="container-fluid mt-1 text-center">
-      <div className="row mb-5 d-flex justify-content-around" id="myrow">
-        <HomeCard
-          title="¿Cómo se siente hoy?"
-          text="Recibe a diario el estado de ánimo de tus pacientes"
-          image={card1}
-        />
-
-        <HomeCard
-          title="Complementa tu Análisis"
-          text="Suma métricas y gráficas de simple interpretación a tus diagnósticos"
-          image={card2}
-        />
-
-        <HomeCard
-          title="Lo que se viene"
-          text="Establece relaciones entre palabras clave y estados de ánimo"
-          image={card3}
-        />
+    <div className="container-fluid mt-3 mb-3 text-center">
+      <div className="mb-5" id="title">
+        <span>Áni</span>
+        <span id="bot">bot</span>
       </div>
-      <div>
-        <Link to="/graficos">
-          <Button className="mb-5" size="lg" id="button">
-            Continuar
-          </Button>
-        </Link>
+      <div className="container-fluid row d-flex justify-content-around mt-3">
+        <div className="d-flex col-5 align-items-center flex-column">
+          <HorizontalCard
+            title="¿Cómo se siente hoy?"
+            text="Recibe a diario el estado de ánimo de tus pacientes"
+            image={card1}
+          />
+          <HorizontalCard
+            title="Complementa tu Análisis"
+            text="Suma métricas y gráficas de simple interpretación a tus diagnósticos"
+            image={card2}
+          />
+          <HorizontalCard
+            title="Lo que se viene"
+            text="Establece relaciones entre palabras clave y estados de ánimo"
+            image={card3}
+          />
+        </div>
+        <div className="d-flex col-4 align-items-center">
+          <SessionCard
+            text="Aquí va el formulario de usuario y contraseña"
+            loginButton="Iniciar Sesión"
+            createButton="Crear nuevo usuario"
+          />
+        </div>
       </div>
     </div>
   );

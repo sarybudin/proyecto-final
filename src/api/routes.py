@@ -8,14 +8,30 @@ from api.utils import generate_sitemap, APIException
 api = Blueprint('api', __name__)
 
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
-
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
-
-    return jsonify(response_body), 200
+@api.route('/newUser', methods=['POST'])
+def newUser():
+    body = request.get_json()
+    exists = db.session.query(Psicologo).filter_by(nombre=body["Nombre"]).first() is not None
+    if exists == True:
+        response_body = {
+            "message": "El usuario ya existe"
+        }
+    elif exists == False:
+        nombre = body["Nombre"]
+        telefono = body["Telefono"]
+        direccion = body["Direccion"]
+        email = body["Correo"]
+        password = body["Password"]
+        newPsicologo = Psicologo(
+        nombre = nombre,
+        telefono = telefono,
+        direccion_comercial = direccion,
+        email = email,
+        password = password
+        )
+        db.session.add(newPsicologo)
+        db.session.commit()
+        return "Psicologo creado", 200
 
 @api.route('/bot', methods=['GET'])
 def bot():

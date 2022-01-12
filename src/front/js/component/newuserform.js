@@ -1,61 +1,81 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import PropTypes from "prop-types";
-// import { Context } from "../store/appContext";
+import { Context } from "../store/appContext";
 import "../../styles/newuserform.css";
-import { Button, Input, Form, Label, FormGroup, FormText } from "reactstrap";
+import { Input, Form, Label, FormGroup } from "reactstrap";
 
-export const NewUserForm = () => {
+export const NewUserForm = (props) => {
+  const { store, actions } = useContext(Context);
   return (
     <Form>
       <FormGroup>
-        <Label for="name">Name</Label>
+        <Label for="nombre">Nombre</Label>
         <Input
-          id="name"
-          name="name"
+          id="nombre"
+          name="nombre"
           placeholder="Nombre Completo"
           type="text"
+          onChange={(e) => {
+            props.setNombre(e.target.value);
+          }}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="email">Email</Label>
+        <Label for="correo">Correo</Label>
         <Input
-          id="email"
-          name="email"
-          placeholder="email@email.com"
+          id="correo"
+          name="correo"
+          placeholder="correo@email.com"
           type="email"
+          onChange={(e) => {
+            props.setCorreo(e.target.value);
+          }}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="passowrd1">Password</Label>
+        <Label for="password1">Contraseña</Label>
         <Input
           id="password1"
           name="password1"
           placeholder="Contraseña"
           type="password"
+          onChange={(e) => {
+            props.setClave(e.target.value);
+          }}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="examplePassword">Password</Label>
+        <Label for="telefono">Teléfono</Label>
         <Input
-          id="password2"
-          name="password2"
-          placeholder="Contraseña"
-          type="password"
+          id="telefono"
+          name="telefono"
+          placeholder="Teléfono"
+          type="tel"
+          onChange={(e) => {
+            props.setTelefono(e.target.value);
+          }}
         />
       </FormGroup>
       <FormGroup>
-        <Label for="phone">Phone</Label>
-        <Input id="phone" name="phone" placeholder="Teléfono" type="tel" />
-      </FormGroup>
-      <FormGroup>
-        <Label for="direction">Direction</Label>
+        <Label for="direccion">Dirección</Label>
         <Input
-          id="direction"
-          name="direction"
+          id="direccion"
+          name="direccion"
           placeholder="Dirección Comercial"
           type="text"
+          onChange={(e) => {
+            props.setDireccion(e.target.value);
+          }}
         />
       </FormGroup>
     </Form>
   );
+};
+
+NewUserForm.propTypes = {
+  setNombre: PropTypes.any,
+  setCorreo: PropTypes.any,
+  setClave: PropTypes.any,
+  setTelefono: PropTypes.any,
+  setDireccion: PropTypes.any,
 };
