@@ -38,6 +38,30 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
       },
+      iniciarSesion: (correo, clave) => {
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          Email: correo,
+          Password: clave,
+        });
+
+        var requestOptions = {
+          method: "POST",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch(
+          "https://3001-rose-haddock-94adoe3x.ws-us25.gitpod.io/api/login",
+          requestOptions
+        )
+          .then((response) => response.text())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+      },
       obtenerDatosGraficos: async () => {
         try {
           let response = await fetch(

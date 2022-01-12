@@ -4,9 +4,10 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db,Psicologo, Paciente, Bot
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import datetime
 
 api = Blueprint('api', __name__)
-
 
 @api.route('/newUser', methods=['POST'])
 def newUser():
@@ -32,6 +33,33 @@ def newUser():
         db.session.add(newPsicologo)
         db.session.commit()
         return "Psicologo creado", 200
+
+@api.route('/login', methods=["POST"])
+def login():
+    if request.method == "POST":
+        body = request.get_json()
+        userExists = Psicologo.query.filter_by(email=body["Email"]).first()
+        
+        if userExists:
+            if userExists.password == body["Password"]:
+                time = datetime.timedelta(minutes=10)
+                access_token = create_access_token(identity=body["Email"], expires_delta=time)
+                response = {
+                    "email": body["Email"], "token":access_token, "expires_in": time.total_seconds(), "status": "ok"
+                        }
+                return jsonify(response), 200
+            else:
+                return jsonify("Usuario o contraseña errada")
+        else:
+            return jsonify("Usuario no existe"), 200
+
+@api.route('/private', methods=["GET"])
+@jwt_required()
+def private():
+    if request.method == "GET":
+        token = get_jwt_identity()
+        return jsonify({"success":"You accesed your private dashboard", "user":token}), 200
+            
 
 @api.route('/bot', methods=['GET'])
 def bot():

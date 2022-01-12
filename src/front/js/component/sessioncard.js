@@ -4,8 +4,11 @@ import PropTypes from "prop-types";
 import "../../styles/sessioncard.css";
 import { Card, CardBody, CardText, Button, Input } from "reactstrap";
 import { NewUserModal } from "./newusermodal";
+import { useState } from "react/cjs/react.development";
 
 export const SessionCard = (props) => {
+  const [correo, setCorreo] = useState("");
+  const [clave, setClave] = useState("");
   return (
     <Card className="session-body">
       <CardBody className="d-flex align-items-center flex-column">
@@ -15,6 +18,7 @@ export const SessionCard = (props) => {
           name="email"
           placeholder="Correo electrónico"
           type="email"
+          onChange={(e) => setCorreo(e.target.value)}
         />
         <Input
           className="loginInput"
@@ -22,8 +26,11 @@ export const SessionCard = (props) => {
           name="password"
           placeholder="Contraseña"
           type="password"
+          onChange={(e) => setClave(e.target.value)}
         />
-        <Button id="loginButton">{props.loginButton}</Button>
+        <Button id="loginButton" onClick={() => alert(clave, correo)}>
+          {props.loginButton}
+        </Button>
         <CardText>
           <a href="" id="forgot">
             ¿Olvidaste tu contraseña?
