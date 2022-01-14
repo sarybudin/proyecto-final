@@ -1,12 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import { useHistory } from "react-router-dom";
 import PropTypes from "prop-types";
-// import { Context } from "../store/appContext";
+import { Context } from "../store/appContext";
 import "../../styles/sessioncard.css";
 import { Card, CardBody, CardText, Button, Input } from "reactstrap";
 import { NewUserModal } from "./newusermodal";
-import { useState } from "react/cjs/react.development";
 
 export const SessionCard = (props) => {
+  const { store, actions } = useContext(Context);
+  const history = useHistory();
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
   return (
@@ -28,7 +30,12 @@ export const SessionCard = (props) => {
           type="password"
           onChange={(e) => setClave(e.target.value)}
         />
-        <Button id="loginButton" onClick={() => alert(clave, correo)}>
+        <Button
+          id="loginButton"
+          onClick={() => {
+            actions.iniciarSesion(correo, clave, history);
+          }}
+        >
           {props.loginButton}
         </Button>
         <CardText>

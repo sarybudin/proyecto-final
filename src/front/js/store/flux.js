@@ -2,13 +2,6 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       graficoTresMeses: [],
-      usuario: {
-        nombre: "",
-        correo: "",
-        clave: "",
-        telefono: "",
-        direccion: "",
-      },
     },
     actions: {
       crearUsuario: (nombre, correo, clave, telefono, direccion) => {
@@ -30,15 +23,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(
-          "https://3001-rose-haddock-94adoe3x.ws-us25.gitpod.io/api/newUser",
-          requestOptions
-        )
+        fetch(process.env.BACKEND_URL + "/api/newUser", requestOptions)
           .then((response) => response.text())
           .then((result) => console.log(result))
           .catch((error) => console.log("error", error));
       },
-      iniciarSesion: (correo, clave) => {
+      iniciarSesion: (correo, clave, history) => {
+        const store = getStore();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -54,18 +45,52 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
+        fetch(process.env.BACKEND_URL + "/api/login", requestOptions)
+          .then((response) => response.json())
+          .then((result) => {
+            //setStore({ fetchResult: result });
+            if (result == "Usuario no existe") {
+              alert(result);
+            } else {
+              sessionStorage.setItem("token", result.token);
+              console.log("Sesión iniciada");
+              history.push("/graficos");
+            }
+          })
+          .catch((error) => console.log("error", error));
+      },
+      checkToken: (history) => {
+        let currentToken = sessionStorage.getItem("token");
+        console.log(currentToken);
+        var myHeaders = new Headers();
+        myHeaders.append(
+          "Authorization",
+          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0MjExNjc1MywianRpIjoiZDZkN2FlZjQtMGU3NS00MmM2LThiZDktZTI0MTZiZTY3YzhlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InBzaWNvbG9nb0BnbWFpbC5jb20iLCJuYmYiOjE2NDIxMTY3NTMsImV4cCI6MTY0MjExNjgxM30.IXLVFyDKLGrWShOjn86PRmP1poEu_YWv-7O3pXW78rY"
+        );
+
+        var requestOptions = {
+          method: "GET",
+          headers: myHeaders,
+          redirect: "follow",
+        };
+
         fetch(
-          "https://3001-rose-haddock-94adoe3x.ws-us25.gitpod.io/api/login",
+          "https://3001-rose-haddock-94adoe3x.ws-us27.gitpod.io/api/private",
           requestOptions
         )
           .then((response) => response.text())
-          .then((result) => console.log(result))
+          .then((result) => {
+            result = JSON.parse(result);
+            if (result.msg != "Logged In") {
+              history.push("/");
+            }
+          })
           .catch((error) => console.log("error", error));
       },
       obtenerDatosGraficos: async () => {
         try {
           let response = await fetch(
-            "https://3001-rose-haddock-94adoe3x.ws-us25.gitpod.io/api/getDataGrafico",
+            process.env.BACKEND_URL + "/api/getDataGrafico",
             {
               method: "GET",
               redirect: "follow",

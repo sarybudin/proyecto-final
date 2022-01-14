@@ -42,7 +42,7 @@ def login():
         
         if userExists:
             if userExists.password == body["Password"]:
-                time = datetime.timedelta(minutes=10)
+                time = datetime.timedelta(minutes=1)
                 access_token = create_access_token(identity=body["Email"], expires_delta=time)
                 response = {
                     "email": body["Email"], "token":access_token, "expires_in": time.total_seconds(), "status": "ok"
@@ -53,12 +53,13 @@ def login():
         else:
             return jsonify("Usuario no existe"), 200
 
+
 @api.route('/private', methods=["GET"])
 @jwt_required()
 def private():
     if request.method == "GET":
         token = get_jwt_identity()
-        return jsonify({"success":"You accesed your private dashboard", "user":token}), 200
+        return "Logged In", 200
             
 
 @api.route('/bot', methods=['GET'])

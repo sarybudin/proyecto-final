@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/graficos.css";
 import {
@@ -40,8 +41,10 @@ export const getLabels = () => {
 
 export const Graficos = () => {
   const { store, actions } = useContext(Context);
+  const history = useHistory();
 
   useEffect(() => {
+    actions.checkToken(history);
     actions.obtenerDatosGraficos();
   }, []);
 
