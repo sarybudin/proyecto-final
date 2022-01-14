@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db,Psicologo, Paciente, Bot
+from api.models import db,Psicologo, Paciente, Bot, Historial
 from api.utils import generate_sitemap, APIException
 
 api = Blueprint('api', __name__)
@@ -84,3 +84,34 @@ def getPaciente(idPaciente):
         return {}
     else:
         return jsonify(paciente.serialize()), 200
+
+@api.route('/guardarFicha', methods=['POST'])
+def guardarFicha():
+    body = request.get_json()
+    
+    stmt = Paciente.query.\
+        filter(Paciente.id==body['id']).\
+        first()
+    
+    print("=========")
+    print(stmt)
+
+    stmt.telefono = body['telefono'],
+    stmt.fecha_nacimiento = body['fecha_nacimiento'],
+    stmt.email = body['email'],
+    stmt.direccion = body['direccion'],
+    stmt.diagnóstico = body['diagnostico'],
+    stmt.estado_civil = body['estado_civil'],
+    stmt.nro_hijos = body['nro_hijos'],
+    stmt.nacionalidad = body['nacionalidad'],
+    stmt.username = body['username']
+
+    db.session.commit()
+    return "OK", 200
+
+@api.route('/historial/paciente/<int:idPaciente>', methods=['GET'])
+def getHistorialPaciente(idPaciente):
+    paciente= Historial.query.filter(Historial.paciente_id == idPaciente).all()
+    paciente=list(map(lambda x: x.serialize(),paciente))
+
+    return jsonify(paciente), 200

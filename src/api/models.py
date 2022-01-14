@@ -38,6 +38,7 @@ class Paciente(db.Model):
     username = db.Column(db.String(120), nullable=True)
 
     psicologo = db.relationship("Psicologo", back_populates="paciente")
+    historial = db.relationship("Historial", back_populates="paciente")
     bot = db.relationship("Bot", back_populates="paciente", uselist=True)
     
     def serialize(self):
@@ -89,5 +90,17 @@ class Bot(db.Model):
             "paciente" : self.paciente.serialize(),
         }
     
+class Historial(db.Model):
+    __tablename__ = 'historial'
+    id = db.Column(db.Integer, primary_key=True)
+    paciente_id = db.Column(db.Integer,db.ForeignKey('paciente.id'))
+    diagnostico = db.Column(db.String(500), unique=False, nullable=False)
+    
+    paciente = db.relationship("Paciente", back_populates="historial")
 
-
+    def serialize(self):
+        return {
+            "id": self.id,
+            "paciente_id": self.paciente_id,
+            "diagnostico": self.diagnostico,
+        }
