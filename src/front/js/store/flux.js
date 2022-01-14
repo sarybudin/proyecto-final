@@ -60,32 +60,29 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch((error) => console.log("error", error));
       },
       checkToken: (history) => {
-        let currentToken = sessionStorage.getItem("token");
-        console.log(currentToken);
-        var myHeaders = new Headers();
-        myHeaders.append(
-          "Authorization",
-          "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY0MjExNjc1MywianRpIjoiZDZkN2FlZjQtMGU3NS00MmM2LThiZDktZTI0MTZiZTY3YzhlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InBzaWNvbG9nb0BnbWFpbC5jb20iLCJuYmYiOjE2NDIxMTY3NTMsImV4cCI6MTY0MjExNjgxM30.IXLVFyDKLGrWShOjn86PRmP1poEu_YWv-7O3pXW78rY"
-        );
+        setInterval(() => {
+          console.log("Estoy dentro del intervalo");
+          let currentToken = sessionStorage.getItem("token");
+          var myHeaders = new Headers();
+          myHeaders.append("Authorization", "Bearer " + currentToken);
 
-        var requestOptions = {
-          method: "GET",
-          headers: myHeaders,
-          redirect: "follow",
-        };
+          var requestOptions = {
+            method: "GET",
+            headers: myHeaders,
+            redirect: "follow",
+          };
 
-        fetch(
-          "https://3001-rose-haddock-94adoe3x.ws-us27.gitpod.io/api/private",
-          requestOptions
-        )
-          .then((response) => response.text())
-          .then((result) => {
-            result = JSON.parse(result);
-            if (result.msg != "Logged In") {
-              history.push("/");
-            }
-          })
-          .catch((error) => console.log("error", error));
+          fetch(process.env.BACKEND_URL + "/api/private", requestOptions)
+            .then((response) => response.text())
+            .then((result) => {
+              if (result != "Logged In") {
+                alert("Su tiempo de sesión ha finalizado.");
+                storage.removeItem("token");
+                history.push("/");
+              }
+            })
+            .catch((error) => console.log("error", error));
+        }, 120000);
       },
       obtenerDatosGraficos: async () => {
         try {

@@ -44,6 +44,7 @@ export const Graficos = () => {
   const history = useHistory();
 
   useEffect(() => {
+    //let interval = setInterval(actions.checkToken(history), 120000);
     actions.checkToken(history);
     actions.obtenerDatosGraficos();
   }, []);
