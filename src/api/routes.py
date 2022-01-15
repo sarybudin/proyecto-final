@@ -42,7 +42,7 @@ def login():
         
         if userExists:
             if userExists.password == body["Password"]:
-                time = datetime.timedelta(minutes=5)
+                time = datetime.timedelta(minutes=20)
                 access_token = create_access_token(identity=body["Email"], expires_delta=time)
                 response = {
                     "email": body["Email"], "token":access_token, "expires_in": time.total_seconds(), "status": "ok"

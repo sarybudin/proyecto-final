@@ -44,17 +44,12 @@ export const Graficos = () => {
   const { store, actions } = useContext(Context);
   const history = useHistory();
 
-  useEffect(() => {
-    //let interval = setInterval(actions.checkToken(history), 120000);
-    actions.checkToken(history);
-    actions.obtenerDatosGraficos();
-  });
-
   const params = useParams();
 
   useEffect(() => {
+    actions.checkToken(history);
     actions.obtenerDatosGraficos(params?.idPaciente);
-  }, []);
+  });
 
   // Bar
   const optionsBar = {
