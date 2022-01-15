@@ -11,6 +11,7 @@ import Registros from "./pages/Registros";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
+import { Ficha } from "./pages/ficha";
 
 //create your first component
 const Layout = () => {
@@ -18,36 +19,42 @@ const Layout = () => {
   // you can set the basename on the .env file located at the root of this project, E.g: BASENAME=/react-hello-webapp/
   const basename = process.env.BASENAME || "";
 
-	return (
-		<div>
-			<BrowserRouter basename={basename}>
-				<ScrollToTop>
-					{/* <Navbar /> */}
-					<Switch>
-						<Route exact path="/">
-							<Home />
-						</Route>
-						<Route exact path="/demo">
-							<Demo />
-						</Route>
-						<Route exact path="/single/:theid">
-							<Single />
-						</Route>
-						<Route exact path="/graficos">
-							<Graficos />
-						</Route>
-						<Route exact path="/registros">
-							<Registros />
-						</Route>
-						<Route>
-							<h1>Not found!</h1>
-						</Route>
-					</Switch>
-					<Footer />
-				</ScrollToTop>
-			</BrowserRouter>
-		</div>
-	);
+  return (
+    <div>
+      <BrowserRouter basename={basename}>
+        <ScrollToTop>
+          {/* <Navbar /> */}
+          <Switch>
+            <Route exact path="/">
+              <Home />
+            </Route>
+            <Route exact path="/demo">
+              <Demo />
+            </Route>
+            <Route exact path="/single/:theid">
+              <Single />
+            </Route>
+            <Route exact path="/graficos">
+              <Graficos />
+            </Route>
+            <Route exact path="/registros">
+              <Registros />
+            </Route>
+            <Route exact path="/graficos/:idPaciente">
+              <Graficos />
+            </Route>
+            <Route exact path="/ficha/:idPaciente">
+              <Ficha />
+            </Route>
+            <Route>
+              <h1>Not found!</h1>
+            </Route>
+          </Switch>
+          <Footer />
+        </ScrollToTop>
+      </BrowserRouter>
+    </div>
+  );
 };
 
 export default injectContext(Layout);
