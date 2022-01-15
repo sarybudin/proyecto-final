@@ -1,10 +1,15 @@
-import React, {useState} from "react";
-import Formulario from "../component/Formulario";
+import React, { useState } from "react";
+import Doctor from "../component/Doctor";
+//import Modals from "../component/Modals";
+//import Formulario from "../component/Formulario";
+//import Doctor from "../component/Doctor";
 
-const Registros = ( ) => {
+const Registros = () => {
     return (
         <div className="container mt-5">
-            <Formulario />
+            <div>
+                <Doctor />
+            </div>
         </div>
     );
 }

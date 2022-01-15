@@ -20,7 +20,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       obtenerDatosGraficos: async () => {
 		try {
 			let response = await fetch(
-				"https://3001-bronze-halibut-tgaoqsl0.ws-us25.gitpod.io/api/getDataGrafico",
+				"https://3001-rose-haddock-94adoe3x.ws-us25.gitpod.io/api/getDataGrafico",
 				{
 				  method: "GET",
 				  redirect: "follow",
