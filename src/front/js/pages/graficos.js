@@ -47,7 +47,7 @@ export const Graficos = () => {
     //let interval = setInterval(actions.checkToken(history), 120000);
     actions.checkToken(history);
     actions.obtenerDatosGraficos();
-  }, []);
+  });
 
   // Bar
   const optionsBar = {
