@@ -13,6 +13,7 @@ import {
   ArcElement,
 } from "chart.js";
 import { Bar, Pie } from "react-chartjs-2";
+import { useParams } from "react-router-dom";
 
 export const getLabels = () => {
   let fecha = new Date();
@@ -48,6 +49,12 @@ export const Graficos = () => {
     actions.checkToken(history);
     actions.obtenerDatosGraficos();
   });
+
+  const params = useParams();
+
+  useEffect(() => {
+    actions.obtenerDatosGraficos(params?.idPaciente);
+  }, []);
 
   // Bar
   const optionsBar = {
