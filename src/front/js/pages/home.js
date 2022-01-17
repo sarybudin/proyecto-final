@@ -1,26 +1,44 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
-import rigoImageUrl from "../../img/rigo-baby.jpg";
+import { HorizontalCard } from "../component/horizontalcard";
+import { SessionCard } from "../component/sessioncard";
 import "../../styles/home.css";
+import card1 from "../../img/card1.jpg";
+import card2 from "../../img/card2.jpg";
+import card3 from "../../img/card3.jpg";
 
 export const Home = () => {
-	const { store, actions } = useContext(Context);
+  const { store, actions } = useContext(Context);
 
-	return (
-		<div className="text-center mt-5">
-			<h1>Hello Rigo!!</h1>
-			<p>
-				<img src={rigoImageUrl} />
-			</p>
-			<div className="alert alert-info">
-				{store.message || "Loading message from the backend (make sure your python backend is running)..."}
-			</div>
-			<p>
-				This boilerplate comes with lots of documentation:{" "}
-				<a href="https://github.com/4GeeksAcademy/react-flask-hello/tree/95e0540bd1422249c3004f149825285118594325/docs">
-					Read documentation
-				</a>
-			</p>
-		</div>
-	);
+  return (
+    <div className="container-fluid mt-3 mb-3 text-center">
+      <div className="container-fluid row d-flex justify-content-around mt-3">
+        <div className="d-flex col-5 align-items-center flex-column">
+          <HorizontalCard
+            title="¿Cómo se siente hoy?"
+            text="Recibe a diario el estado de ánimo de tus pacientes"
+            image={card1}
+          />
+          <HorizontalCard
+            title="Complementa tu Análisis"
+            text="Suma métricas y gráficas de simple interpretación a tus diagnósticos"
+            image={card2}
+          />
+          <HorizontalCard
+            title="Lo que se viene"
+            text="Establece relaciones entre palabras clave y estados de ánimo"
+            image={card3}
+          />
+        </div>
+        <div className="d-flex col-4 align-items-center">
+          <SessionCard
+            text="Aquí va el formulario de usuario y contraseña"
+            loginButton="Iniciar Sesión"
+            createButton="Crear nuevo usuario"
+          />
+        </div>
+      </div>
+    </div>
+  );
 };

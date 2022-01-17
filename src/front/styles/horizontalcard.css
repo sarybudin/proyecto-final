@@ -1,0 +1,35 @@
+.card {
+  height: 8rem;
+  width: 100%;
+  border: 2px #ff9f1c solid;
+  border-radius: 10px;
+  background-color: #cbf3f0;
+  color: white;
+  -webkit-box-shadow: 0px 0px 15px 5px #feed53;
+  box-shadow: 0px 0px 15px 5px #feed53;
+}
+
+#img-space {
+  height: 8rem;
+}
+
+.img-fluid {
+  object-fit: contain;
+  height: 96%;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+}
+
+#hcardTitle {
+  font-size: 22px;
+  color: #ff9f1c;
+  text-shadow: 1px 1px 1px #000000;
+  font-weight: bold;
+}
+
+#hcardText {
+  color: #2ec4b6;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px #cbf3f0;
+}

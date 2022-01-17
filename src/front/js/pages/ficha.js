@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 import "../../styles/ficha.css";
@@ -7,9 +8,14 @@ import { DisplayImage } from "../component/uploadimg";
 export const Ficha = () => {
   const { store, actions } = useContext(Context);
   const params = useParams();
+  const history = useHistory();
 
   useEffect(() => {
-    actions.getFicha(params?.idPaciente);
+    setInterval(() => {
+      actions.checkToken(history);
+    }, 60000);
+    actions.checkToken(history);
+    actions.getFicha(params?.idPaciente, history);
   }, []);
 
   return (
@@ -23,9 +29,7 @@ export const Ficha = () => {
           /> */}
             <DisplayImage />
             <pre>
-              <strong>
-                {store.ficha?.nombre || "Información no ingresada"}
-              </strong>
+              <strong>{store.ficha.nombre}</strong>
               <br></br>
               {store.editarFicha ? (
                 <div>
