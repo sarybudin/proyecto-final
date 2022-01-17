@@ -62,8 +62,19 @@
 }
 .lista {
   border: solid 1px #2ec4b6;
-  padding: 20px;
+  padding: 0px;
   background-color: white;
+}
+.lista-head {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.lista-head input {
+  width: 80%;
+}
+.body {
+  padding: 20px;
 }
 .todo {
   border: solid 1px #2ec4b6;

@@ -6,7 +6,8 @@ const getState = ({ getStore, getActions, setStore }) => {
       logged: null,
       ficha: false,
       editarFicha: false,
-      todo: ["casa", "hola"],
+      anotaciones: [],
+      anotacion: "",
     },
     actions: {
       crearUsuario: (nombre, correo, clave, telefono, direccion) => {
@@ -80,12 +81,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
-          let result = await fetch(urlApi + "guardarFicha", {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify(store.ficha),
-            redirect: "follow",
-          }).then((response) => response.json());
+          let result = await fetch(
+            process.env.BACKEND_URL + "/api/guardarFicha",
+            {
+              method: "POST",
+              headers: myHeaders,
+              body: JSON.stringify(store.ficha),
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
           console.log(result);
           setStore({ editarFicha: false });
         } catch (error) {
@@ -93,47 +97,34 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ editarFicha: false });
         }
       },
-      addtodo: async (todo) => {
+      addtodo: async (anotaciones) => {
         const store = getStore();
-        store.todo.push(todo);
-        setStore({ todo: [...store.todo] });
+        store.anotaciones.push(anotaciones);
+        setStore({ anotaciones: [...store.anotaciones] });
       },
+      getFicha: async (idPaciente) => {
+        try {
+          let response = await fetch(
+            process.env.BACKEND_URL +
+              "/api/paciente/" +
+              (idPaciente ? idPaciente : 0),
+            {
+              method: "GET",
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
+          setStore({ ficha: response });
+          let responseHP = await fetch(
+            urlApi + "historial/paciente/" + (idPaciente ? idPaciente : 0),
+            {
+              method: "GET",
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
 
-      getFicha: async (idPaciente, history) => {
-        const store = getStore();
-        console.log(store.logged);
-        if (store.logged == true) {
-          try {
-            let response = await fetch(
-              urlApi + "paciente/" + (idPaciente ? idPaciente : 0),
-              {
-                method: "GET",
-                redirect: "follow",
-              }
-            ).then((response) => response.json());
-
-            setStore({ ficha: response });
-
-            let responseHP = await fetch(
-              urlApi + "historial/paciente/" + (idPaciente ? idPaciente : 0),
-              {
-                method: "GET",
-                redirect: "follow",
-              }
-            ).then((response) => response.json());
-
-            setStore({ todo: responseHP });
-          } catch (error) {
-            //setStore({ ficha: false });
-            console.log(
-              "ha ocurrido un error entre cnseguir ficha o historial"
-            );
-          }
-        } else {
-          sessionStorage.removeItem("token");
-          setStore({ logged: false });
-          alert("Debe iniciar sesión.");
-          history.push("/");
+          setStore({ todo: responseHP });
+        } catch (error) {
+          setStore({ ficha: false });
         }
       },
       obtenerDatosGraficos: async (idPaciente) => {

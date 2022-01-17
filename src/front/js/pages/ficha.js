@@ -38,14 +38,14 @@ export const Ficha = () => {
                     className="btn btn-outline-success"
                     onClick={(e) => actions.guardarFicha()}
                   >
-                    Guardar
+                    <i className="fa fa-check text-succes" />
                   </button>
                   <button
                     type="button"
                     className="btn btn-outline-danger"
                     onClick={(e) => actions.cancelarFicha()}
                   >
-                    Cancelar
+                    <i className="fa fa-ban text-danger" />
                   </button>
                 </div>
               ) : (
@@ -54,7 +54,7 @@ export const Ficha = () => {
                   className="btn btn-outline-primary"
                   onClick={(e) => actions.editarFicha()}
                 >
-                  Editar
+                  <i className="fa fa-pen text-succes" />
                 </button>
               )}
             </pre>
@@ -234,11 +234,52 @@ export const Ficha = () => {
         </div>
         <div className="todo row">
           <div className="lista">
-            <ul>
-              {store.todo.map((value, key) => (
-                <li key={key}>{value.diagnostico}</li>
-              ))}
-            </ul>
+            <div className="titulo">
+              <strong>Anotaciones</strong>
+            </div>
+            <div className="body">
+              <div className="input-group mb-3">
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Diagnóstico"
+                  onChange={(e) => {
+                    store.anotacion = e.target.value;
+                  }}
+                />
+                <button
+                  type="button"
+                  className="btn btn-outline-secondary"
+                  onClick={(e) =>
+                    actions.addHistorico(store.anotacion, store.ficha?.id)
+                  }
+                >
+                  Guardar
+                </button>
+              </div>
+              <div>
+                {store.anotaciones.map((value, key) => (
+                  <div key={key}>
+                    <div className="row">
+                      <div className="col-12 col-sm-12 col-md-10">
+                        {value.anotacion}
+                      </div>
+                      <div className="col-12 col-sm-12 col-md-2 text-end">
+                        <button
+                          type="button"
+                          className="btn btn-outline-danger"
+                          onClick={(e) =>
+                            actions.eliminarHistorial(value.id, store.ficha?.id)
+                          }
+                        >
+                          <i className="fa fa-trash text-danger" />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
