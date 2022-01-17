@@ -47,11 +47,11 @@ export const Graficos = () => {
   const params = useParams();
 
   useEffect(() => {
-    actions.checkToken(history);
     actions.obtenerDatosGraficos(params?.idPaciente);
+    /* actions.checkToken(history);
     setInterval(() => {
       actions.checkToken(history);
-    }, 60000);
+    }, 60000);*/
   }, []);
 
   // Bar
