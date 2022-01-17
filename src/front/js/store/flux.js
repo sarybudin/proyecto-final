@@ -1,5 +1,4 @@
 const getState = ({ getStore, getActions, setStore }) => {
-  const urlApi = "https://3001-bronze-halibut-tgaoqsl0.ws-us27.gitpod.io/api/";
   return {
     store: {
       message: null,
@@ -18,9 +17,49 @@ const getState = ({ getStore, getActions, setStore }) => {
       graficoTresMeses: [],
       ficha: undefined,
       editarFicha: false,
-      todo: ["casa", "hola"],
+      anotaciones: [],
+      anotacion: "",
     },
     actions: {
+      eliminarHistorial: async (id, paciente_id) => {
+        try {
+          let response = await fetch(
+            process.env.BACKEND_URL +
+              "/api/eliminarHistorial/" +
+              (id ? id : 0) +
+              "/" +
+              (paciente_id ? paciente_id : 0),
+            {
+              method: "DELETE",
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
+          setStore({ anotaciones: response });
+        } catch (error) {
+          console.log(error);
+          setStore({ anotaciones: [] });
+        }
+      },
+      addHistorico: async (anotacion, paciente_id) => {
+        try {
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          let result = await fetch(
+            process.env.BACKEND_URL + "/api/addHistorico",
+            {
+              method: "POST",
+              headers: myHeaders,
+              body: JSON.stringify({ anotacion, paciente_id }),
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
+          console.log(result);
+          setStore({ anotaciones: result });
+        } catch (error) {
+          console.log(error);
+          setStore({ anotaciones: [] });
+        }
+      },
       editDataFicha: (dato, valor) => {
         const store = getStore();
         store.ficha[dato] = valor;
@@ -37,12 +76,15 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           const myHeaders = new Headers();
           myHeaders.append("Content-Type", "application/json");
-          let result = await fetch(urlApi + "guardarFicha", {
-            method: "POST",
-            headers: myHeaders,
-            body: JSON.stringify(store.ficha),
-            redirect: "follow",
-          }).then((response) => response.json());
+          let result = await fetch(
+            process.env.BACKEND_URL + "/api/guardarFicha",
+            {
+              method: "POST",
+              headers: myHeaders,
+              body: JSON.stringify(store.ficha),
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
           console.log(result);
           setStore({ editarFicha: false });
         } catch (error) {
@@ -50,15 +92,17 @@ const getState = ({ getStore, getActions, setStore }) => {
           setStore({ editarFicha: false });
         }
       },
-      addtodo: async (todo) => {
+      addtodo: async (anotaciones) => {
         const store = getStore();
-        store.todo.push(todo);
-        setStore({ todo: [...store.todo] });
+        store.anotaciones.push(anotaciones);
+        setStore({ anotaciones: [...store.anotaciones] });
       },
       getFicha: async (idPaciente) => {
         try {
           let response = await fetch(
-            urlApi + "paciente/" + (idPaciente ? idPaciente : 0),
+            process.env.BACKEND_URL +
+              "/api/paciente/" +
+              (idPaciente ? idPaciente : 0),
             {
               method: "GET",
               redirect: "follow",
@@ -67,15 +111,17 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           setStore({ ficha: response });
 
-          let responseHP = await fetch(
-            urlApi + "historial/paciente/" + (idPaciente ? idPaciente : 0),
+          const responseHP = await fetch(
+            process.env.BACKEND_URL +
+              "/api/historial/paciente/" +
+              (idPaciente ? idPaciente : 0),
             {
               method: "GET",
               redirect: "follow",
             }
           ).then((response) => response.json());
 
-          setStore({ todo: responseHP });
+          setStore({ anotaciones: responseHP });
         } catch (error) {
           setStore({ ficha: undefined });
         }
@@ -83,7 +129,9 @@ const getState = ({ getStore, getActions, setStore }) => {
       obtenerDatosGraficos: async (idPaciente) => {
         try {
           let response = await fetch(
-            urlApi + "getDataGrafico/" + (idPaciente ? idPaciente : 0),
+            process.env.BACKEND_URL +
+              "/api/getDataGrafico/" +
+              (idPaciente ? idPaciente : 0),
             {
               method: "GET",
               redirect: "follow",

@@ -94,7 +94,7 @@ class Historial(db.Model):
     __tablename__ = 'historial'
     id = db.Column(db.Integer, primary_key=True)
     paciente_id = db.Column(db.Integer,db.ForeignKey('paciente.id'))
-    diagnostico = db.Column(db.String(500), unique=False, nullable=False)
+    anotacion = db.Column(db.String(500), unique=False, nullable=False)
     
     paciente = db.relationship("Paciente", back_populates="historial")
 
@@ -102,5 +102,5 @@ class Historial(db.Model):
         return {
             "id": self.id,
             "paciente_id": self.paciente_id,
-            "diagnostico": self.diagnostico,
+            "anotacion": self.anotacion,
         }
