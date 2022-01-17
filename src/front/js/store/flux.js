@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       graficoTresMeses: [],
-      logged: false,
+      logged: null,
       ficha: false,
       editarFicha: false,
       todo: ["casa", "hola"],
@@ -99,7 +99,7 @@ const getState = ({ getStore, getActions, setStore }) => {
         setStore({ todo: [...store.todo] });
       },
 
-      getFicha: async (idPaciente) => {
+      getFicha: async (idPaciente, history) => {
         const store = getStore();
         console.log(store.logged);
         if (store.logged == true) {
@@ -129,10 +129,16 @@ const getState = ({ getStore, getActions, setStore }) => {
               "ha ocurrido un error entre cnseguir ficha o historial"
             );
           }
+        } else {
+          sessionStorage.removeItem("token");
+          setStore({ logged: false });
+          alert("Debe iniciar sesión.");
+          history.push("/");
         }
       },
       obtenerDatosGraficos: async (idPaciente) => {
         const store = getStore();
+        console.log(store.logged);
         if (store.logged == true) {
           try {
             let response = await fetch(

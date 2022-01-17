@@ -11,9 +11,12 @@ export const Ficha = () => {
   const history = useHistory();
 
   useEffect(() => {
+    setInterval(() => {
+      actions.checkToken(history);
+    }, 60000);
     actions.checkToken(history);
-    actions.getFicha(params?.idPaciente);
-  });
+    actions.getFicha(params?.idPaciente, history);
+  }, []);
 
   return (
     <div className="container total">

@@ -13,10 +13,6 @@ export const Home = () => {
 
   return (
     <div className="container-fluid mt-3 mb-3 text-center">
-      <div className="mb-5" id="title">
-        <span>Áni</span>
-        <span id="bot">bot</span>
-      </div>
       <div className="container-fluid row d-flex justify-content-around mt-3">
         <div className="d-flex col-5 align-items-center flex-column">
           <HorizontalCard
