@@ -65,6 +65,45 @@ const getState = ({ getStore, getActions, setStore }) => {
           })
           .catch((error) => console.log("error", error));
       },
+      eliminarHistorial: async (id, paciente_id) => {
+        try {
+          let response = await fetch(
+            process.env.BACKEND_URL +
+              "/api/eliminarHistorial/" +
+              (id ? id : 0) +
+              "/" +
+              (paciente_id ? paciente_id : 0),
+            {
+              method: "DELETE",
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
+          setStore({ anotaciones: response });
+        } catch (error) {
+          console.log(error);
+          setStore({ anotaciones: [] });
+        }
+      },
+      addHistorico: async (anotacion, paciente_id) => {
+        try {
+          const myHeaders = new Headers();
+          myHeaders.append("Content-Type", "application/json");
+          let result = await fetch(
+            process.env.BACKEND_URL + "/api/addHistorico",
+            {
+              method: "POST",
+              headers: myHeaders,
+              body: JSON.stringify({ anotacion, paciente_id }),
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
+          console.log(result);
+          setStore({ anotaciones: result });
+        } catch (error) {
+          console.log(error);
+          setStore({ anotaciones: [] });
+        }
+      },
       editDataFicha: (dato, valor) => {
         const store = getStore();
         store.ficha[dato] = valor;

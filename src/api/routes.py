@@ -176,3 +176,31 @@ def getHistorialPaciente(idPaciente):
     paciente=list(map(lambda x: x.serialize(),paciente))
 
     return jsonify(paciente), 200
+
+@api.route('/addHistorico', methods=['POST'])
+def addHistorico():
+    body = request.get_json()
+
+    newHistorial = Historial(
+        anotacion = body['anotacion'],
+        paciente_id = body['paciente_id'],
+    )
+    db.session.add(newHistorial)
+    db.session.commit()
+    
+    historico= Historial.query.filter(Historial.paciente_id == body['paciente_id']).all()
+    historico=list(map(lambda x: x.serialize(),historico))
+
+    return jsonify(historico), 200
+
+@api.route('/eliminarHistorial/<int:id>/<int:paciente_id>', methods=['DELETE'])
+def eliminarHistorial(id, paciente_id):
+    db.session.query(Historial).\
+    filter(Historial.id == id).\
+    delete(synchronize_session=False)
+    db.session.commit()
+    
+    historico= Historial.query.filter(Historial.paciente_id == paciente_id).all()
+    historico=list(map(lambda x: x.serialize(),historico))
+
+    return jsonify(historico), 200
