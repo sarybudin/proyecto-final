@@ -7,6 +7,7 @@ import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import { Graficos } from "./pages/graficos";
 import injectContext from "./store/appContext";
+import Registros from "./pages/registros";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
@@ -29,6 +30,9 @@ const Layout = () => {
             </Route>
             <Route exact path="/graficos">
               <Graficos />
+            </Route>
+            <Route exact path="/registros">
+              <Registros />
             </Route>
             <Route exact path="/graficos/:idPaciente">
               <Graficos />
