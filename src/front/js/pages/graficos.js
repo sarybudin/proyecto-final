@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/graficos.css";
 import {
@@ -41,10 +42,16 @@ export const getLabels = () => {
 
 export const Graficos = () => {
   const { store, actions } = useContext(Context);
+  const history = useHistory();
+
   const params = useParams();
 
   useEffect(() => {
     actions.obtenerDatosGraficos(params?.idPaciente);
+    /* actions.checkToken(history);
+    setInterval(() => {
+      actions.checkToken(history);
+    }, 60000);*/
   }, []);
 
   // Bar

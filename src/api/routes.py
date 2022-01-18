@@ -4,18 +4,63 @@ This module takes care of starting the API Server, Loading the DB and Adding the
 from flask import Flask, request, jsonify, url_for, Blueprint
 from api.models import db,Psicologo, Paciente, Bot, Historial
 from api.utils import generate_sitemap, APIException
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+import datetime
 
 api = Blueprint('api', __name__)
 
+@api.route('/newUser', methods=['POST'])
+def newUser():
+    body = request.get_json()
+    exists = db.session.query(Psicologo).filter_by(nombre=body["Nombre"]).first() is not None
+    if exists == True:
+        response_body = {
+            "message": "El usuario ya existe"
+        }
+    elif exists == False:
+        nombre = body["Nombre"]
+        telefono = body["Telefono"]
+        direccion = body["Direccion"]
+        email = body["Correo"]
+        password = body["Password"]
+        newPsicologo = Psicologo(
+        nombre = nombre,
+        telefono = telefono,
+        direccion_comercial = direccion,
+        email = email,
+        password = password
+        )
+        db.session.add(newPsicologo)
+        db.session.commit()
+        return "Psicologo creado", 200
 
-@api.route('/hello', methods=['POST', 'GET'])
-def handle_hello():
+@api.route('/login', methods=["POST"])
+def login():
+    if request.method == "POST":
+        body = request.get_json()
+        userExists = Psicologo.query.filter_by(email=body["Email"]).first()
+        
+        if userExists:
+            if userExists.password == body["Password"]:
+                time = datetime.timedelta(minutes=20)
+                access_token = create_access_token(identity=body["Email"], expires_delta=time)
+                response = {
+                    "email": body["Email"], "token":access_token, "expires_in": time.total_seconds(), "status": "ok"
+                        }
+                return jsonify(response), 200
+            else:
+                return jsonify("Usuario o contraseña errada")
+        else:
+            return jsonify("Usuario no existe"), 200
 
-    response_body = {
-        "message": "Hello! I'm a message that came from the backend, check the network tab on the google inspector and you will see the GET request"
-    }
 
-    return jsonify(response_body), 200
+@api.route('/private', methods=["GET"])
+@jwt_required()
+def private():
+    if request.method == "GET":
+        token = get_jwt_identity()
+        return "Logged In", 200
+            
 
 @api.route('/bot', methods=['GET'])
 def bot():
@@ -42,10 +87,12 @@ def addbot():
         respuesta = body["respuesta"]
         paciente_id = paciente.id
         fecha = body["fecha"]
+        comentario = body["comentario"]
         newBot = Bot(
         respuesta = respuesta,
         paciente_id = paciente_id,
         fecha = fecha,
+        comentario = comentario
         )
         db.session.add(newBot)
         db.session.commit()
@@ -137,3 +184,31 @@ def getHistorialPaciente(idPaciente):
     paciente=list(map(lambda x: x.serialize(),paciente))
 
     return jsonify(paciente), 200
+
+@api.route('/addHistorico', methods=['POST'])
+def addHistorico():
+    body = request.get_json()
+
+    newHistorial = Historial(
+        anotacion = body['anotacion'],
+        paciente_id = body['paciente_id'],
+    )
+    db.session.add(newHistorial)
+    db.session.commit()
+    
+    historico= Historial.query.filter(Historial.paciente_id == body['paciente_id']).all()
+    historico=list(map(lambda x: x.serialize(),historico))
+
+    return jsonify(historico), 200
+
+@api.route('/eliminarHistorial/<int:id>/<int:paciente_id>', methods=['DELETE'])
+def eliminarHistorial(id, paciente_id):
+    db.session.query(Historial).\
+    filter(Historial.id == id).\
+    delete(synchronize_session=False)
+    db.session.commit()
+    
+    historico= Historial.query.filter(Historial.paciente_id == paciente_id).all()
+    historico=list(map(lambda x: x.serialize(),historico))
+
+    return jsonify(historico), 200

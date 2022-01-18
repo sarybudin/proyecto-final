@@ -71,7 +71,9 @@ class Bot(db.Model):
     respuesta = db.Column(db.String(120), unique=False, nullable=False)
     paciente_id = db.Column(db.Integer,db.ForeignKey('paciente.id'))
     fecha = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    comentario = db.Column(db.String(120), unique=False, nullable=True)
     paciente = db.relationship("Paciente", back_populates="bot")
+    
 
     def serialize(self):
         return {
@@ -79,6 +81,7 @@ class Bot(db.Model):
             "respuesta": self.respuesta,
             "paciente_id": self.paciente_id,
             "fecha": self.fecha,
+            "comentario": self.comentario,
         }
     
     def serializeAll(self):
@@ -94,7 +97,7 @@ class Historial(db.Model):
     __tablename__ = 'historial'
     id = db.Column(db.Integer, primary_key=True)
     paciente_id = db.Column(db.Integer,db.ForeignKey('paciente.id'))
-    diagnostico = db.Column(db.String(500), unique=False, nullable=False)
+    anotacion = db.Column(db.String(500), unique=False, nullable=False)
     
     paciente = db.relationship("Paciente", back_populates="historial")
 
@@ -102,5 +105,5 @@ class Historial(db.Model):
         return {
             "id": self.id,
             "paciente_id": self.paciente_id,
-            "diagnostico": self.diagnostico,
+            "anotacion": self.anotacion,
         }
