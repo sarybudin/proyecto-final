@@ -164,7 +164,7 @@ const getState = ({ getStore, getActions, setStore }) => {
               }
             ).then((response) => response.json());
 
-            setStore({ todo: responseHP });
+            setStore({ anotaciones: responseHP });
           } catch (error) {
             /*setStore({ ficha: false });*/
           }

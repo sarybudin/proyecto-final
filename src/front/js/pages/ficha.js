@@ -173,12 +173,6 @@ export const Ficha = () => {
             ) : (
               <div className="cuerpo">
                 <pre>
-                  <span>Psicologo</span> :{" "}
-                  <label key={11}>
-                    {store.ficha?.nombrePsicologo || "Información no ingresada"}
-                  </label>
-                </pre>
-                <pre>
                   <span>Telefono</span> :{" "}
                   <label key={12}>
                     {store.ficha?.telefono || "Información no ingresada"}

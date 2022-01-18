@@ -187,7 +187,7 @@ def addHistorico():
     )
     db.session.add(newHistorial)
     db.session.commit()
-    
+
     historico= Historial.query.filter(Historial.paciente_id == body['paciente_id']).all()
     historico=list(map(lambda x: x.serialize(),historico))
 
