@@ -15,7 +15,7 @@ export const Ficha = () => {
       actions.checkToken(history);
     }, 60000);
     actions.checkToken(history);
-    actions.getFicha(params?.idPaciente, history);
+    actions.getFicha(params?.idPaciente);
   }, []);
 
   return (

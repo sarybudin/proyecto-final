@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       graficoTresMeses: [],
-      logged: null,
+      logged: true,
       ficha: false,
       editarFicha: false,
       anotaciones: [],
@@ -163,7 +163,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
           setStore({ anotaciones: responseHP });
         } catch (error) {
-          setStore({ ficha: false });
+          /*setStore({ ficha: false });*/
         }
       },
       obtenerDatosGraficos: async (idPaciente) => {

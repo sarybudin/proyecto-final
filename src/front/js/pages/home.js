@@ -31,6 +31,7 @@ export const Home = () => {
             image={card3}
           />
         </div>
+        <p>Hola</p>
         <div className="d-flex col-4 align-items-center">
           <SessionCard
             text="Aquí va el formulario de usuario y contraseña"
