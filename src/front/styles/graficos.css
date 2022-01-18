@@ -36,3 +36,19 @@
 .cardgrafico .details li {
   list-style-type: none;
 }
+
+button {
+  color: white;
+  background-color: #2ec4b6;
+  border: 2px #ff9f1c solid;
+  font-size: 20px;
+  text-shadow: 1px 1px 2px #000000;
+  border-radius: 4px;
+}
+
+#paciente {
+  font-size: 25px;
+  color: #ff9f1c;
+  text-shadow: 1px 1px 1px #000000;
+  font-weight: bold;
+}

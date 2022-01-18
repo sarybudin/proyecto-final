@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
@@ -11,11 +12,15 @@ export const Ficha = () => {
   const history = useHistory();
 
   useEffect(() => {
+    actions.checkToken(history);
     setInterval(() => {
       actions.checkToken(history);
     }, 60000);
-    actions.checkToken(history);
-    actions.getFicha(params?.idPaciente);
+    setTimeout(() => {
+      actions.getFicha(params?.idPaciente);
+    }, 500);
+
+    //actions.getFicha(params?.idPaciente);
   }, []);
 
   return (
@@ -228,6 +233,11 @@ export const Ficha = () => {
                     {store.ficha?.username || "Información no ingresada"}
                   </label>
                 </pre>
+                <div className="buttonDiv">
+                  <Link to={`/graficos/${params.idPaciente}`}>
+                    <button id="verEstadisticas">Ver Estadísticas</button>
+                  </Link>
+                </div>
               </div>
             )}
           </div>
@@ -242,7 +252,7 @@ export const Ficha = () => {
                 <input
                   type="text"
                   className="form-control"
-                  placeholder="Diagnóstico"
+                  placeholder="Observación"
                   onChange={(e) => {
                     store.anotacion = e.target.value;
                   }}
@@ -252,7 +262,7 @@ export const Ficha = () => {
                   type="button"
                   className="btn btn-outline-secondary"
                   onClick={(e) =>
-                    actions.addHistorico(store.anotacion, store.ficha?.id)
+                    actions.addtodo(store.anotacion, store.ficha?.id)
                   }
                 >
                   Guardar

@@ -127,3 +127,17 @@ pre span {
 
   text-shadow: 1px 1px 2px #000000;
 }
+
+.buttonDiv {
+  display: flex;
+  justify-content: center;
+}
+
+button {
+  color: white;
+  background-color: #2ec4b6;
+  border: 2px #ff9f1c solid;
+  font-size: 20px;
+
+  text-shadow: 1px 1px 2px #000000;
+}
