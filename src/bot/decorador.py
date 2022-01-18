@@ -17,7 +17,7 @@ def ask_comment(call, emotion):
 
 ## Post a la API:
 def upload_info(username, emotion, comment, fecha):
-    url = "https://3001-rose-haddock-94adoe3x.ws-us25.gitpod.io/api/bot"
+    url = "https://3001-rose-haddock-94adoe3x.ws-us27.gitpod.io/api/bot"
     payload = json.dumps({
         ##"username": update["message"]["chat"]["username"],
         "username": username,
