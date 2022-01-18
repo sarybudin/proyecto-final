@@ -66,7 +66,7 @@ export const Ficha = () => {
             {store.editarFicha ? (
               <div className="cuerpo">
                 <pre>
-                  <strong>Telefono</strong> :
+                  <span>Telefono</span> :
                   <input
                     type="text"
                     name="edit_telefono"
@@ -77,7 +77,7 @@ export const Ficha = () => {
                   />
                 </pre>
                 <pre>
-                  <strong>Fecha Nacimiento</strong> :
+                  <span>Fecha Nacimiento</span> :
                   <input
                     type="text"
                     name="edit_fecha_nacimiento"
@@ -88,7 +88,7 @@ export const Ficha = () => {
                   />
                 </pre>
                 <pre>
-                  <strong>Email</strong> :
+                  <span>Email</span> :
                   <input
                     type="text"
                     name="edit_email"
@@ -99,7 +99,7 @@ export const Ficha = () => {
                   />
                 </pre>
                 <pre>
-                  <strong>Direccion</strong> :
+                  <span>Direccion</span> :
                   <input
                     type="text"
                     name="edit_direccion"
@@ -110,7 +110,7 @@ export const Ficha = () => {
                   />
                 </pre>
                 <pre>
-                  <strong>Diagnóstico</strong> :
+                  <span>Diagnóstico</span> :
                   <input
                     type="text"
                     name="edit_diagnostico"
@@ -121,7 +121,7 @@ export const Ficha = () => {
                   />
                 </pre>
                 <pre>
-                  <strong>Estado Civil </strong> :
+                  <span>Estado Civil </span> :
                   <input
                     type="text"
                     name="edit_estado_civil"
@@ -132,7 +132,7 @@ export const Ficha = () => {
                   />{" "}
                 </pre>
                 <pre>
-                  <strong>Nro Hijos</strong> :
+                  <span>Nro Hijos</span> :
                   <input
                     type="text"
                     name="edit_nro_hijos"
@@ -143,7 +143,7 @@ export const Ficha = () => {
                   />
                 </pre>
                 <pre>
-                  <strong>Nacionalidad </strong> :
+                  <span>Nacionalidad </span> :
                   <input
                     type="text"
                     name="edit_nacionalidad"
@@ -154,7 +154,7 @@ export const Ficha = () => {
                   />
                 </pre>
                 <pre>
-                  <strong>Nombre Usuario</strong> :
+                  <p>Nombre Usuario</p> :
                   <input
                     type="text"
                     name="edit_username"
@@ -168,62 +168,62 @@ export const Ficha = () => {
             ) : (
               <div className="cuerpo">
                 <pre>
-                  <strong>Psicologo</strong> :{" "}
+                  <span>Psicologo</span> :{" "}
                   <label key={11}>
                     {store.ficha?.nombrePsicologo || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Telefono</strong> :{" "}
+                  <span>Telefono</span> :{" "}
                   <label key={12}>
                     {store.ficha?.telefono || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Fecha Nacimiento</strong> :{" "}
+                  <span>Fecha Nacimiento</span> :{" "}
                   <label key={13}>
                     {store.ficha?.fecha_nacimiento ||
                       "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Email</strong> :{" "}
+                  <span>Email</span> :{" "}
                   <label key={15}>
                     {store.ficha?.email || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Direccion</strong> :{" "}
+                  <span>Direccion</span> :{" "}
                   <label key={16}>
                     {store.ficha?.direccion || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Diagnóstico</strong> :{" "}
+                  <span>Diagnóstico</span> :{" "}
                   <label key={17}>
                     {store.ficha?.diagnostico || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Estado Civil </strong> :{" "}
+                  <span>Estado Civil </span> :{" "}
                   <label key={18}>
                     {store.ficha?.estado_civil || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Nro Hijos</strong> :{" "}
+                  <span>Nro Hijos</span> :{" "}
                   <label key={19}>
                     {store.ficha?.nro_hijos || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Nacionalidad </strong> :{" "}
+                  <span>Nacionalidad </span> :{" "}
                   <label key={110}>
                     {store.ficha?.nacionalidad || "Información no ingresada"}
                   </label>
                 </pre>
                 <pre>
-                  <strong>Nombre Usuario</strong> :{" "}
+                  <span>Nombre Usuario</span> :{" "}
                   <label key={111}>
                     {store.ficha?.username || "Información no ingresada"}
                   </label>
@@ -248,6 +248,7 @@ export const Ficha = () => {
                   }}
                 />
                 <button
+                  id="guardarToDo"
                   type="button"
                   className="btn btn-outline-secondary"
                   onClick={(e) =>
