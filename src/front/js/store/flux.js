@@ -19,6 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       ficha: undefined,
       editarFicha: false,
       todo: ["casa", "hola"],
+      listaPacientes: []
     },
     actions: {
       editDataFicha: (dato, valor) => {
@@ -196,6 +197,28 @@ const getState = ({ getStore, getActions, setStore }) => {
         //reset the global store
         setStore({ demo: demo });
       },
+
+      lista_pacientes: () => {
+//        const acciones = getActions()
+//        console.log(acciones.saludo())
+
+
+
+        fetch("https://3001-sarybudin-proyectofinal-xcoar6at49o.ws-us27.gitpod.io/api/pacientes")
+          .then(response => response.json())
+          .then(result => {console.log(result)
+            setStore({listaPacientes:result})
+          })
+          .catch(error => console.log('error', error));
+        console.log(getStore())
+      },
+        
+//      saludo: () => {
+//        console.log("Hola JC")
+//      }
+
+
+
     },
   };
 };

@@ -99,6 +99,14 @@ def getPaciente(idPaciente):
     else:
         return jsonify(paciente.serialize()), 200
 
+@api.route('/pacientes', methods=['GET'])
+
+def get_pacientes() :
+    all_people = Paciente.query.all()
+    all_people = list(map(lambda x: x.serialize(), all_people))
+
+    return jsonify(all_people)
+
 @api.route('/guardarFicha', methods=['POST'])
 def guardarFicha():
     body = request.get_json()

@@ -1,91 +1,71 @@
-import propTypes from "prop-types";
-import React, { Fragment, useState } from "react";
-import { Form } from "reactstrap";
-
+import PropTypes from "prop-types";
+import React, { Fragment, useState, useEffect } from "react";
+import "../../styles/doctor.css"
 
 const Formulario = (props) => {
-
-    const [paciente, setPaciente] = useState({
-        nombre: '',
-        apellido: '',
-        direccion: '',
-        email: '',
-        telefono: '',
-        username: '',
-        diagnostico: ''
-    })
-
+    useEffect(() => {
+        console.log(props.paciente, 'TOY DENTRO DEL FORM')
+    }, [props.paciente])
     const handleInputChange = (e) => {
-        setPaciente({
-            ...paciente,
+        props.setPaciente({
+            ...props.paciente,
             [e.target.name]: e.target.value
         })
-
+        //e.preventDefault();
     }
-
-    const crearPaciente = (e) => {
-        e.preventDefault();
-    }
-
     return (
         <Fragment>
             <h1>Ingreso Pacientes</h1>
-            <form onSubmit={crearPaciente}>
-                <div className="">
+            <form >
+                <div className="doctor">
                     <input
-                        placeholder="Nombres"
+                        placeholder="Nombre Completo"
                         className="form-control"
                         type="text"
                         name="nombre"
-                        onChange={handleInputChange} />
-                    <input
-                        placeholder="Apellidos"
-                        padx="10"
-                        className="form-control"
-                        type="text"
-                        name="apellido"
-                        onChange={handleInputChange} />
+                        onChange={handleInputChange}
+                    />
                     <input
                         placeholder="Direccion"
                         className="form-control"
                         name="direccion"
-                        onChange={handleInputChange} />
+                        onChange={handleInputChange}
+                    />
                     <input
                         placeholder="e-mail"
                         className="form-control"
                         type="email"
                         name="email"
-                        onChange={handleInputChange} />
+                        onChange={handleInputChange}
+                    />
                     <input
                         placeholder="Teléfono"
                         className="form-control"
                         type="number"
                         name="telefono"
-                        onChange={handleInputChange} />
+                        onChange={handleInputChange}
+                    />
                     <input
                         placeholder="Telegram"
                         className="form-control"
                         type="text"
                         name="username"
-                        onChange={handleInputChange} />
+                        onChange={handleInputChange}
+                    />
                     <input
                         placeholder="Diagnóstico"
                         className="form-control"
                         type="text"
                         name="diagnostico"
-                        onChange={handleInputChange} />
+                        onChange={handleInputChange}
+                    />
                 </div>
-                <div className="d-grid gap-2 col-6 mx-auto">
-                    <br />
-                    <button className="btn btn-primary" type="submit">Crear</button>
-                </div>
-
             </form>
         </Fragment>
     );
 }
-Form.propTypes = {
-    setPaciente: propTypes.any
-}
-
+Formulario.propTypes = {
+    setPaciente: PropTypes.any,
+    paciente: PropTypes.any
+};
 export default Formulario;

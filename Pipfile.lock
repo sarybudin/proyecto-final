@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "94657f40f3916518656201d56c44f8e664a49641f51ccea8768acfd0964567e7"
+            "sha256": "2984718d82f5578d41121c930c96d166cbe4f7b2cadeb457b7d907f41062e001"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.10"
+            "python_version": "3.8"
         },
         "sources": [
             {
@@ -41,18 +41,10 @@
         },
         "cloudinary": {
             "hashes": [
-                "sha256:9848d197857ab21b8e1d39e23cccae335127d96297f7ea638e0e6898a7db73c8"
+                "sha256:632203a323da03c1be84dfb092fb30d2844e48a3a2f39077724ccb60daceea58"
             ],
             "index": "pypi",
-            "version": "==1.28.0"
-        },
-        "colorama": {
-            "hashes": [
-                "sha256:5941b2b48a20143d2267e95b1c2a7603ce057ee39fd88e7329b0c292aa16869b",
-                "sha256:9f47eda37229f68eee03b24b9748937c7dc3868f906e8ba69fbcbdd3bc5dc3e2"
-            ],
-            "markers": "platform_system == 'Windows'",
-            "version": "==0.4.4"
+            "version": "==1.28.1"
         },
         "flask": {
             "hashes": [
@@ -169,6 +161,22 @@
             ],
             "index": "pypi",
             "version": "==20.1.0"
+        },
+        "importlib-metadata": {
+            "hashes": [
+                "sha256:92a8b58ce734b2a4494878e0ecf7d79ccd7a128b5fc6014c401e0b61f006f0f6",
+                "sha256:b7cf7d3fef75f1e4c80a96ca660efbd51473d7e8f39b5ab9210febc7809012a4"
+            ],
+            "markers": "python_version < '3.9'",
+            "version": "==4.10.0"
+        },
+        "importlib-resources": {
+            "hashes": [
+                "sha256:33a95faed5fc19b4bc16b29a6eeae248a3fe69dd55d4d229d2b480e23eeaad45",
+                "sha256:d756e2f85dd4de2ba89be0b21dba2a3bbec2e871a42a3a16719258a11f87506b"
+            ],
+            "markers": "python_version < '3.9'",
+            "version": "==5.4.0"
         },
         "itsdangerous": {
             "hashes": [
@@ -378,14 +386,6 @@
             "markers": "python_version >= '3.6'",
             "version": "==6.0"
         },
-        "setuptools": {
-            "hashes": [
-                "sha256:2932bfeb248c648dc411ea9714d5a6de7a33ef1a0db2f0fce644d8172b0479e8",
-                "sha256:2b62b3dbec1fe95585dadf3bd9a014c8c578624918190428c3a7994bb52ae2b8"
-            ],
-            "markers": "python_version >= '3.7'",
-            "version": "==60.3.1"
-        },
         "six": {
             "hashes": [
                 "sha256:1e61c37477a1626458e36f7b1d82aa5c9b094fa4802892072e49de9c60c4c926",
@@ -459,6 +459,14 @@
             ],
             "markers": "python_version >= '3.7'",
             "version": "==3.0.1"
+        },
+        "zipp": {
+            "hashes": [
+                "sha256:9f50f446828eb9d45b267433fd3e9da8d801f614129124863f9c51ebceafb87d",
+                "sha256:b47250dd24f92b7dd6a0a8fc5244da14608f3ca90a5efcd37a3b1642fac9a375"
+            ],
+            "markers": "python_version < '3.10'",
+            "version": "==3.7.0"
         }
     },
     "develop": {}

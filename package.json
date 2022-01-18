@@ -73,13 +73,10 @@
 		]
 	},
 	"dependencies": {
-<<<<<<< HEAD
-		"bootstrap": "^5.1.3",
-=======
 		"@rpldy/upload-button": "^0.16.2",
 		"@rpldy/upload-preview": "^0.16.2",
 		"@rpldy/uploady": "^0.16.2",
->>>>>>> 23426c9b6da8dc1e16a709cee26bacc68e4ca749
+		"bootstrap": "^5.1.3",
 		"chart.js": "^3.7.0",
 		"faker": "^5.5.3",
 		"prop-types": "^15.6.1",
@@ -87,6 +84,7 @@
 		"react-bootstrap": "^2.1.1",
 		"react-chartjs-2": "^4.0.0",
 		"react-dom": "^16.14.0",
+		"react-hook-form": "^7.24.0",
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^5.2.0",
 		"reactstrap": "^9.0.1"

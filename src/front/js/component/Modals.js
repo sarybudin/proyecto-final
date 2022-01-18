@@ -9,32 +9,40 @@ function Modals() {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
-    const [paciente, setPaciente] = useState('');
+    const [paciente, setPaciente] = useState({
+        nombre: '',
+        direccion: '',
+        email: '',
+        telefono: '',
+        username: '',
+        diagnostico: ''
+    })
 
 
     return (
         <>
-
-            <Button variant="primary" onClick={handleShow}>
-                Crear
-            </Button>
-
+            <div className="elboton">
+                <Button color="primary" onClick={() => handleShow(setShow(true))}>
+                    Crear
+                </Button>
+            </div>
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
                     <Modal.Title>Ingreso de Pacientes</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
 
-                    <Formulario setPaciente={setPaciente}></Formulario>
+                    <Formulario setPaciente={setPaciente} paciente={paciente}></Formulario>
 
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>
-                        Close
+                        Cerrar
                     </Button>
                     <Button variant="primary"
                         onClick={() => {
-                            actions.exampleFunction(nombre, apellido)
+                            //                            actions.exampleFunction(paciente.nombre)
+                            console.log(paciente)
                             handleClose()
                         }
                         }>
