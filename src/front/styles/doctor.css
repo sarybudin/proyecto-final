@@ -1,25 +1,55 @@
-.doctor {
-  background-color: rgb(203, 243, 240, 0.25) !important;
+@import url("https://fonts.googleapis.com/css2?family=Arvo:wght@700&family=Montserrat:wght@600;700&family=Oswald&display=swap");
+
+.container-full {
+  background-color: white;
+  border-radius: 5px;
+  padding: 15px 15px 15px 15px;
+  -webkit-box-shadow: 0px 0px 15px 5px #ff9f1c;
+  box-shadow: 0px 0px 15px 5px #ff9f1c;
 }
 
-.botones {
-  background-color: rgb(203, 243, 240, 0.25) !important;
-  display: flex;
-  flex-direction: row;
-  justify-content: right;
-  font-size: 24px;
+#logOut,
+#verFicha,
+#verEstadistica {
+  background-color: #2ec4b6;
+  border: 2px #ff9f1c solid;
+  text-shadow: 1px 1px 4px #000000;
+  font-size: 16px;
+}
+
+#listTitle,
+#registroTitle {
+  font-family: "Arvo", serif;
+  color: #ff9f1c;
+  text-shadow: 1px 1px 1px #000000;
+  font-weight: bold;
+}
+
+#crearPaciente {
+  background-color: #2ec4b6;
+  border: 2px #ff9f1c solid;
+  text-shadow: 1px 1px 4px #000000;
+  font-size: 20px;
+}
+
+#listTitle {
+  text-align: center;
 }
 
 .lista {
   text-align: center;
-  background-color: rgb(203, 243, 240, 0.25) !important;
 }
 
-.elboton {
-  background-color: rgb(203, 243, 240, 0.25) !important;
-  
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  font-size: 24px;
+p,
+th {
+  color: #2ec4b6;
+  font-size: 20px;
+  text-shadow: 1px 1px 1px black;
+}
+
+td {
+  font-size: 20px;
+  font-weight: bold;
+  color: #ff9f1c;
+  text-shadow: 1px 1px 1px #000000;
 }

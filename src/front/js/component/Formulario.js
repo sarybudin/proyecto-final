@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React, { Fragment, useState, useEffect } from "react";
-import "../../styles/doctor.css"
+import "../../styles/formulario.css"
 
 const Formulario = (props) => {
     useEffect(() => {
@@ -14,54 +14,51 @@ const Formulario = (props) => {
         //e.preventDefault();
     }
     return (
-        <Fragment>
-            <h1>Ingreso Pacientes</h1>
-            <form >
-                <div className="doctor">
-                    <input
-                        placeholder="Nombre Completo"
-                        className="form-control"
-                        type="text"
-                        name="nombre"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        placeholder="Direccion"
-                        className="form-control"
-                        name="direccion"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        placeholder="e-mail"
-                        className="form-control"
-                        type="email"
-                        name="email"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        placeholder="Teléfono"
-                        className="form-control"
-                        type="number"
-                        name="telefono"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        placeholder="Telegram"
-                        className="form-control"
-                        type="text"
-                        name="username"
-                        onChange={handleInputChange}
-                    />
-                    <input
-                        placeholder="Diagnóstico"
-                        className="form-control"
-                        type="text"
-                        name="diagnostico"
-                        onChange={handleInputChange}
-                    />
-                </div>
-            </form>
-        </Fragment>
+        <form className="d-flex flex-column justify-content-center">
+            <div>
+                <input
+                    placeholder="Nombre Completo"
+                    className="form-control"
+                    type="text"
+                    name="nombre"
+                    onChange={handleInputChange}
+                />
+                <input
+                    placeholder="Dirección"
+                    className="form-control"
+                    name="direccion"
+                    onChange={handleInputChange}
+                />
+                <input
+                    placeholder="Correo Electrónico"
+                    className="form-control"
+                    type="email"
+                    name="email"
+                    onChange={handleInputChange}
+                />
+                <input
+                    placeholder="Teléfono"
+                    className="form-control"
+                    type="number"
+                    name="telefono"
+                    onChange={handleInputChange}
+                />
+                <input
+                    placeholder="Usuario de Telegram"
+                    className="form-control"
+                    type="text"
+                    name="username"
+                    onChange={handleInputChange}
+                />
+                <input
+                    placeholder="Diagnóstico"
+                    className="form-control"
+                    type="text"
+                    name="diagnostico"
+                    onChange={handleInputChange}
+                />
+            </div>
+        </form>
     );
 }
 Formulario.propTypes = {

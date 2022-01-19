@@ -1,4 +1,7 @@
 import React, { useContext, useEffect, useState, Fragment } from "react";
+import { Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
+
 import { Context } from "../store/appContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Container } from 'reactstrap';
@@ -7,22 +10,24 @@ import "../../styles/doctor.css";
 const Lista = () => {
 
     const { store, actions } = useContext(Context);
+    const params = useParams();
     useEffect(() => {
         actions.lista_pacientes()
+        console.log(store.listaPacientes)
 
     }, [])
     return (
         <>
-            <Container className="doctor">
-                <div className="lista">
-                    <h2>LISTA DE PACIENTES</h2>
-                </div>
+            <div>
+
+                <h3 id="listTitle">Lista de Pacientes</h3>
+
                 <Table>
 
                     <thead>
-                        <tr>
+                        <tr id="tableHead">
                             <th>
-                                Nombre Paciente
+                                Nombre
                             </th>
                             <th>
                                 Diagnóstico
@@ -30,21 +35,25 @@ const Lista = () => {
                             <th>
                                 Ficha
                             </th>
+                            <th>
+                                Estadísticas
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            store.listaPacientes.map((paciente, key) => (
+                            store.listaPacientes.map((paciente, key, id) => (
                                 <tr>
                                     <td key={key}> {paciente.nombre} </td>
                                     <td> {paciente.diagnostico}</td>
-                                    <td><Button color="primary">Ver Ficha</Button></td>
+                                    <td><Link to={`/ficha/${store.listaPacientes[key].id}`}><Button id="verFicha">Ver Ficha</Button></Link></td>
+                                    <td><Link to={`/graficos/${store.listaPacientes[key].id}`}><Button id="verEstadistica">Ver Estadísticas</Button></Link></td>
                                 </tr>
                             ))}
                     </tbody>
                 </Table>
 
-            </Container>
+            </div>
         </>
     );
 }

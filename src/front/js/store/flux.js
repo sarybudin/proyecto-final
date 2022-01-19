@@ -284,7 +284,6 @@ const getState = ({ getStore, getActions, setStore }) => {
               setStore({ logged: false });
               alert("Debe iniciar sesión.");
               history.push("/");
-              console.log("Chequee el token y no lo encontré ok");
             }
             if (result == "Logged In") {
               setStore({ logged: true });
@@ -306,13 +305,13 @@ const getState = ({ getStore, getActions, setStore }) => {
           .catch(error => console.log('error', error));
         console.log(getStore())
       },
-
-      //      saludo: () => {
-      //        console.log("Hola JC")
-      //      }
-
-
-
+      cerrarSesion: (history) => {
+        const store = getStore()
+        sessionStorage.removeItem("token");
+        setStore({ logged: false });
+        alert("Hasta luego");
+        history.push("/");
+      }
     },
   };
 };

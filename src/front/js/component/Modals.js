@@ -21,9 +21,9 @@ function Modals() {
 
     return (
         <>
-            <div className="elboton">
-                <Button color="primary" onClick={() => handleShow(setShow(true))}>
-                    Crear
+            <div className="elboton d-flex justify-content-center mt-5">
+                <Button id="crearPaciente" onClick={() => handleShow(setShow(true))}>
+                    Crear Paciente
                 </Button>
             </div>
             <Modal show={show} onHide={handleClose}>

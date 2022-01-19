@@ -6,7 +6,7 @@ import Doctor from "../component/Doctor";
 
 const Registros = () => {
     return (
-        <div className="container mt-5">
+        <div className="container mt-2">
             <div>
                 <Doctor />
             </div>

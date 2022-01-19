@@ -4,8 +4,8 @@
   border-radius: 10px;
   background-color: #cbf3f0;
   color: white;
-  -webkit-box-shadow: 0px 0px 15px 5px #feed53;
-  box-shadow: 0px 0px 15px 5px #feed53;
+  -webkit-box-shadow: 0px 0px 15px 2px #ff9f1c;
+  box-shadow: 0px 0px 15px 2px #ff9f1c;
   border: 2px #ff9f1c solid;
 }
 
@@ -29,7 +29,7 @@
 
 #hcardText {
   color: #2ec4b6;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
-  text-shadow: 2px 2px 4px #cbf3f0;
+  text-shadow: 1px 1px 1px black;
 }

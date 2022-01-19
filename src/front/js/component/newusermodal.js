@@ -1,11 +1,13 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Context } from "../store/appContext";
 import { NewUserForm } from "./newuserform";
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 
 export const NewUserModal = () => {
+  //useEffect(() => validacion())
   const { store, actions } = useContext(Context);
+  const [validado, setValidado] = useState(false)
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [clave, setClave] = useState("");
@@ -13,6 +15,16 @@ export const NewUserModal = () => {
   const [direccion, setDireccion] = useState("");
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+
+  const validacion = () => {
+    if (nombre != "" && correo != "" && clave != "" && telefono != "" && direccion != "") {
+      setValidado(true)
+      console.log(validado)
+    }
+    else {
+      alert("Todos los campos son obligatorios")
+    }
+  }
 
   return (
     <div>
@@ -34,8 +46,11 @@ export const NewUserModal = () => {
           <Button
             color="primary"
             onClick={() => {
-              toggle();
-              actions.crearUsuario(nombre, correo, clave, telefono, direccion);
+              validacion()
+              if (validado == true) {
+                toggle();
+                actions.crearUsuario(nombre, correo, clave, telefono, direccion);
+              }
             }}
           >
             Crear Usuario
