@@ -256,7 +256,7 @@ export const Ficha = () => {
                   type="button"
                   className="btn btn-outline-secondary"
                   onClick={(e) =>
-                    actions.addtodo(store.anotacion, store.ficha?.id)
+                    actions.addHistorico(store.anotacion, store.ficha?.id)
                   }
                 >
                   Guardar

@@ -11,7 +11,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       anotaciones: [],
       anotacion: "",
     },
-    
+
     actions: {
       crearUsuario: (nombre, correo, clave, telefono, direccion) => {
         var myHeaders = new Headers();
@@ -62,7 +62,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             } else {
               sessionStorage.setItem("token", result.token);
               console.log("Sesión iniciada");
-              history.push("/ficha/1");
+              history.push("/registros");
               setStore({ logged: true });
             }
           })
@@ -72,10 +72,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           let response = await fetch(
             process.env.BACKEND_URL +
-              "/api/eliminarHistorial/" +
-              (id ? id : 0) +
-              "/" +
-              (paciente_id ? paciente_id : 0),
+            "/api/eliminarHistorial/" +
+            (id ? id : 0) +
+            "/" +
+            (paciente_id ? paciente_id : 0),
             {
               method: "DELETE",
               redirect: "follow",
@@ -141,6 +141,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       addtodo: async (anotaciones) => {
         const store = getStore();
+        console.log(store.anotaciones)
         store.anotaciones.push(anotaciones);
         setStore({ anotaciones: [...store.anotaciones] });
       },
@@ -151,8 +152,8 @@ const getState = ({ getStore, getActions, setStore }) => {
           try {
             let response = await fetch(
               process.env.BACKEND_URL +
-                "/api/paciente/" +
-                (idPaciente ? idPaciente : 0),
+              "/api/paciente/" +
+              (idPaciente ? idPaciente : 0),
               {
                 method: "GET",
                 redirect: "follow",
@@ -295,23 +296,24 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
 
       lista_pacientes: () => {
-//        const acciones = getActions()
-//        console.log(acciones.saludo())
+        //        const acciones = getActions()
+        //        console.log(acciones.saludo())
 
 
 
-        fetch("https://3001-sarybudin-proyectofinal-xcoar6at49o.ws-us27.gitpod.io/api/pacientes")
+        fetch(process.env.BACKEND_URL + "/api/pacientes")
           .then(response => response.json())
-          .then(result => {console.log(result)
-            setStore({listaPacientes:result})
+          .then(result => {
+            console.log(result)
+            setStore({ listaPacientes: result })
           })
           .catch(error => console.log('error', error));
         console.log(getStore())
       },
-        
-//      saludo: () => {
-//        console.log("Hola JC")
-//      }
+
+      //      saludo: () => {
+      //        console.log("Hola JC")
+      //      }
 
 
 
