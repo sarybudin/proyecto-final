@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/graficos.css";
@@ -47,11 +48,14 @@ export const Graficos = () => {
   const params = useParams();
 
   useEffect(() => {
-    actions.obtenerDatosGraficos(params?.idPaciente);
-    /* actions.checkToken(history);
+    actions.checkToken(history);
+    //actions.obtenerDatosGraficos(params?.idPaciente);
+    setTimeout(() => {
+      actions.obtenerDatosGraficos(params?.idPaciente);
+    }, 500);
     setInterval(() => {
       actions.checkToken(history);
-    }, 60000);*/
+    }, 60000);
   }, []);
 
   // Bar
@@ -83,10 +87,13 @@ export const Graficos = () => {
     <div className="text-center mt-1">
       {store.graficoTresMeses.map((valor, key) => (
         <div className="cardgrafico">
-          <div className="title" key={key}>
+          <div className="title d-flex justify-content-between" key={key}>
             <label>
-              <b>{valor.nombre}</b>
+              <span id="paciente">{valor.nombre}</span>
             </label>
+            <Link to={`/ficha/${params.idPaciente}`}>
+              <button>Ficha</button>
+            </Link>
           </div>
           <div className="body">
             <div>

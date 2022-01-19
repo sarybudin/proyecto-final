@@ -3,7 +3,7 @@ const getState = ({ getStore, getActions, setStore }) => {
   return {
     store: {
       graficoTresMeses: [],
-      logged: true,
+      logged: false,
       ficha: false,
       editarFicha: false,
       todo: ["casa", "hola"],
@@ -11,7 +11,6 @@ const getState = ({ getStore, getActions, setStore }) => {
       anotaciones: [],
       anotacion: "",
     },
-    
     actions: {
       crearUsuario: (nombre, correo, clave, telefono, direccion) => {
         var myHeaders = new Headers();
@@ -62,7 +61,7 @@ const getState = ({ getStore, getActions, setStore }) => {
             } else {
               sessionStorage.setItem("token", result.token);
               console.log("Sesión iniciada");
-              history.push("/ficha/1");
+              history.push("/registros");
               setStore({ logged: true });
             }
           })
@@ -72,10 +71,10 @@ const getState = ({ getStore, getActions, setStore }) => {
         try {
           let response = await fetch(
             process.env.BACKEND_URL +
-              "/api/eliminarHistorial/" +
-              (id ? id : 0) +
-              "/" +
-              (paciente_id ? paciente_id : 0),
+            "/api/eliminarHistorial/" +
+            (id ? id : 0) +
+            "/" +
+            (paciente_id ? paciente_id : 0),
             {
               method: "DELETE",
               redirect: "follow",
@@ -141,126 +140,131 @@ const getState = ({ getStore, getActions, setStore }) => {
       },
       addtodo: async (anotaciones) => {
         const store = getStore();
+        console.log(store.anotaciones)
         store.anotaciones.push(anotaciones);
         setStore({ anotaciones: [...store.anotaciones] });
       },
       getFicha: async (idPaciente) => {
-        try {
-          let response = await fetch(
-            process.env.BACKEND_URL +
-              "/api/paciente/" +
-              (idPaciente ? idPaciente : 0),
-            {
-              method: "GET",
-              redirect: "follow",
-            }
-          ).then((response) => response.json());
-          setStore({ ficha: response });
-          let responseHP = await fetch(
-            urlApi + "historial/paciente/" + (idPaciente ? idPaciente : 0),
-            {
-              method: "GET",
-              redirect: "follow",
-            }
-          ).then((response) => response.json());
-
-          setStore({ anotaciones: responseHP });
-        } catch (error) {
-          /*setStore({ ficha: false });*/
-        }
-      },
-      obtenerDatosGraficos: async (idPaciente) => {
         const store = getStore();
         console.log(store.logged);
         if (store.logged == true) {
           try {
             let response = await fetch(
-              urlApi + "getDataGrafico/" + (idPaciente ? idPaciente : 0),
+              process.env.BACKEND_URL +
+              "/api/paciente/" +
+              (idPaciente ? idPaciente : 0),
               {
                 method: "GET",
                 redirect: "follow",
               }
             ).then((response) => response.json());
-            // estructurar datos
-            let result = response.reduce(
-              (h, obj) =>
-                Object.assign(h, {
-                  [obj.nombre]: (h[obj.nombre] || []).concat(obj),
-                }),
-              {}
-            );
+            setStore({ ficha: response });
+            let responseHP = await fetch(
+              urlApi + "historial/paciente/" + (idPaciente ? idPaciente : 0),
+              {
+                method: "GET",
+                redirect: "follow",
+              }
+            ).then((response) => response.json());
 
-            let final = {};
-            let mesActual = new Date().getMonth() + 1;
-            for (let nombre in result) {
-              result[nombre].forEach((dataRes) => {
-                // asignar meses
-                let mes1 = mesActual == 1 ? 11 : mesActual - 2;
-                let mes2 = mesActual == 1 ? 12 : mesActual - 1;
-                let mes3 = mesActual;
-
-                if (final[nombre] == undefined)
-                  final[nombre] = [
-                    [0, 0, 0],
-                    [0, 0, 0],
-                    [0, 0, 0],
-                  ];
-                if (dataRes.respuesta == "\ud83d\ude03") {
-                  // :)
-
-                  if (dataRes.mes == mes1)
-                    final[nombre][0][0] += dataRes.nrorespuesta;
-                  else if (dataRes.mes == mes2)
-                    final[nombre][0][1] += dataRes.nrorespuesta;
-                  else if (dataRes.mes == mes3)
-                    final[nombre][0][2] += dataRes.nrorespuesta;
-                } else if (dataRes.respuesta == "\ud83d\ude10") {
-                  // :|
-
-                  if (dataRes.mes == mes1)
-                    final[nombre][1][0] += dataRes.nrorespuesta;
-                  else if (dataRes.mes == mes2)
-                    final[nombre][1][1] += dataRes.nrorespuesta;
-                  else if (dataRes.mes == mes3)
-                    final[nombre][1][2] += dataRes.nrorespuesta;
-                } else if (dataRes.respuesta == "\ud83d\ude1e") {
-                  // :(
-
-                  if (dataRes.mes == mes1)
-                    final[nombre][2][0] += dataRes.nrorespuesta;
-                  else if (dataRes.mes == mes2)
-                    final[nombre][2][1] += dataRes.nrorespuesta;
-                  else if (dataRes.mes == mes3)
-                    final[nombre][2][2] += dataRes.nrorespuesta;
-                }
-              });
-            }
-            let finalBar = Object.keys(final).map((value) => {
-              const alegre =
-                final[value][0][0] + final[value][0][1] + final[value][0][2];
-              const regular =
-                final[value][1][0] + final[value][1][1] + final[value][1][2];
-              const triste =
-                final[value][2][0] + final[value][2][1] + final[value][2][2];
-              const sumaTotal = alegre + regular + triste;
-              return {
-                nombre: value,
-                data: final[value],
-                dataPie: [
-                  (alegre * 100) / sumaTotal,
-                  (regular * 100) / sumaTotal,
-                  (triste * 100) / sumaTotal,
-                ],
-              };
-            });
-            setStore({ graficoTresMeses: finalBar });
+            setStore({ anotaciones: responseHP });
           } catch (error) {
-            console.log(error);
-            setStore({ graficoTresMeses: [] });
+            /*setStore({ ficha: false });*/
           }
         }
       },
+      obtenerDatosGraficos: async (idPaciente) => {
+        try {
+          let response = await fetch(
+            urlApi + "getDataGrafico/" + (idPaciente ? idPaciente : 0),
+            {
+              method: "GET",
+              redirect: "follow",
+            }
+          ).then((response) => response.json());
+          // estructurar datos
+          let result = response.reduce(
+            (h, obj) =>
+              Object.assign(h, {
+                [obj.nombre]: (h[obj.nombre] || []).concat(obj),
+              }),
+            {}
+          );
+
+          let final = {};
+          let mesActual = new Date().getMonth() + 1;
+          for (let nombre in result) {
+            result[nombre].forEach((dataRes) => {
+              // asignar meses
+              let mes1 = mesActual == 1 ? 11 : mesActual - 2;
+              let mes2 = mesActual == 1 ? 12 : mesActual - 1;
+              let mes3 = mesActual;
+
+              if (final[nombre] == undefined)
+                final[nombre] = [
+                  [0, 0, 0],
+                  [0, 0, 0],
+                  [0, 0, 0],
+                ];
+              if (dataRes.respuesta == "\ud83d\ude03") {
+                // :)
+
+                if (dataRes.mes == mes1)
+                  final[nombre][0][0] += dataRes.nrorespuesta;
+                else if (dataRes.mes == mes2)
+                  final[nombre][0][1] += dataRes.nrorespuesta;
+                else if (dataRes.mes == mes3)
+                  final[nombre][0][2] += dataRes.nrorespuesta;
+              } else if (dataRes.respuesta == "\ud83d\ude10") {
+                // :|
+
+                if (dataRes.mes == mes1)
+                  final[nombre][1][0] += dataRes.nrorespuesta;
+                else if (dataRes.mes == mes2)
+                  final[nombre][1][1] += dataRes.nrorespuesta;
+                else if (dataRes.mes == mes3)
+                  final[nombre][1][2] += dataRes.nrorespuesta;
+              } else if (dataRes.respuesta == "\ud83d\ude1e") {
+                // :(
+
+                if (dataRes.mes == mes1)
+                  final[nombre][2][0] += dataRes.nrorespuesta;
+                else if (dataRes.mes == mes2)
+                  final[nombre][2][1] += dataRes.nrorespuesta;
+                else if (dataRes.mes == mes3)
+                  final[nombre][2][2] += dataRes.nrorespuesta;
+              }
+            });
+          }
+          let finalBar = Object.keys(final).map((value) => {
+            const alegre =
+              final[value][0][0] + final[value][0][1] + final[value][0][2];
+            const regular =
+              final[value][1][0] + final[value][1][1] + final[value][1][2];
+            const triste =
+              final[value][2][0] + final[value][2][1] + final[value][2][2];
+            const sumaTotal = alegre + regular + triste;
+            return {
+              nombre: value,
+              data: final[value],
+              dataPie: [
+                (alegre * 100) / sumaTotal,
+                (regular * 100) / sumaTotal,
+                (triste * 100) / sumaTotal,
+              ],
+            };
+          });
+          const store = getStore();
+          if (store.logged == true) {
+            setStore({ graficoTresMeses: finalBar });
+          }
+        } catch (error) {
+          console.log(error);
+          setStore({ graficoTresMeses: [] });
+        }
+      },
       checkToken: (history) => {
+        console.log("Se ejecutó el chequeo de token");
         const store = getStore();
         let currentToken = sessionStorage.getItem("token");
         var myHeaders = new Headers();
@@ -280,32 +284,32 @@ const getState = ({ getStore, getActions, setStore }) => {
               setStore({ logged: false });
               alert("Debe iniciar sesión.");
               history.push("/");
+              console.log("Chequee el token y no lo encontré ok");
             }
             if (result == "Logged In") {
               setStore({ logged: true });
+              console.log(store.logged);
             }
           })
           .catch((error) => console.log("error", error));
       },
 
       lista_pacientes: () => {
-//        const acciones = getActions()
-//        console.log(acciones.saludo())
-
-
-
-        fetch("https://3001-sarybudin-proyectofinal-xcoar6at49o.ws-us27.gitpod.io/api/pacientes")
+        //        const acciones = getActions()
+        //        console.log(acciones.saludo())
+        fetch(process.env.BACKEND_URL + "/api/pacientes")
           .then(response => response.json())
-          .then(result => {console.log(result)
-            setStore({listaPacientes:result})
+          .then(result => {
+            console.log(result)
+            setStore({ listaPacientes: result })
           })
           .catch(error => console.log('error', error));
         console.log(getStore())
       },
-        
-//      saludo: () => {
-//        console.log("Hola JC")
-//      }
+
+      //      saludo: () => {
+      //        console.log("Hola JC")
+      //      }
 
 
 

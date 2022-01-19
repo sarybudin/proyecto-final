@@ -15,6 +15,11 @@ body {
   text-shadow: 2px 2px 2px #000000;
 }
 
+#title a {
+  text-decoration: none;
+  color: #2ec4b6;
+}
+
 #bot {
   color: #ff9f1c !important;
 }
