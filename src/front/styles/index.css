@@ -1,6 +1,3 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
 body {
   background-color: rgb(203, 243, 240, 0.25) !important;
   height: 100%;
@@ -9,7 +6,8 @@ body {
   background-attachment: fixed;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0;}
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

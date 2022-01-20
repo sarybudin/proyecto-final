@@ -17,7 +17,7 @@ const Doctor = () => {
             <div className="row d-flex mb-2">
                 <div className="col-10">
                     <h2 id="registroTitle">
-                        AniBot le da la bienvenida, Dr. {"doct_name"}
+                        AniBot le da la bienvenida, Dr. {sessionStorage.getItem("nombre")}
 
                     </h2>
                 </div>

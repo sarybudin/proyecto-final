@@ -2,14 +2,8 @@
   width: 20rem;
   border: 2px #ff9f1c solid;
   border-radius: 10px;
-
-  color: white;
   -webkit-box-shadow: 0px 0px 15px 5px #feed53;
   box-shadow: 0px 0px 15px 5px #feed53;
-}
-
-.card-body {
-  background-color: #2ec4b6 !important;
 }
 
 .CardImg {
@@ -22,10 +16,4 @@
   font-size: 24px;
   text-align: center;
   text-shadow: 2px 2px 2px #ff9f1c;
-}
-
-.CardText {
-  text-align: center;
-  font-size: 18px;
-  text-shadow: 1px 1px 4px #000000;
 }

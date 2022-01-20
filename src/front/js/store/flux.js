@@ -10,6 +10,7 @@ const getState = ({ getStore, getActions, setStore }) => {
       listaPacientes: [],
       anotaciones: [],
       anotacion: "",
+      user: { id: "", nombre: "" }
     },
     actions: {
       crearUsuario: (nombre, correo, clave, telefono, direccion) => {
@@ -62,7 +63,9 @@ const getState = ({ getStore, getActions, setStore }) => {
               sessionStorage.setItem("token", result.token);
               console.log("Sesión iniciada");
               history.push("/registros");
-              setStore({ logged: true });
+              setStore({ logged: true, /*user: { id: result.user_id, nombre: result.nombre }*/ });
+              sessionStorage.setItem("id", result.user_id)
+              sessionStorage.setItem("nombre", result.nombre)
             }
           })
           .catch((error) => console.log("error", error));
@@ -281,13 +284,14 @@ const getState = ({ getStore, getActions, setStore }) => {
           .then((result) => {
             if (result != "Logged In") {
               sessionStorage.removeItem("token");
+              sessionStorage.removeItem("id")
+              sessionStorage.removeItem("nombre")
               setStore({ logged: false });
               alert("Debe iniciar sesión.");
               history.push("/");
             }
             if (result == "Logged In") {
               setStore({ logged: true });
-              console.log(store.logged);
             }
           })
           .catch((error) => console.log("error", error));
@@ -308,9 +312,43 @@ const getState = ({ getStore, getActions, setStore }) => {
       cerrarSesion: (history) => {
         const store = getStore()
         sessionStorage.removeItem("token");
-        setStore({ logged: false });
+        sessionStorage.removeItem("id")
+        sessionStorage.removeItem("nombre")
+        setStore({ logged: false, /* user: { id: "", nombre: "" }*/ });
         alert("Hasta luego");
         history.push("/");
+      },
+      crearPaciente: (paciente) => {
+        const store = getStore()
+        const actions = getActions()
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          "Nombre": paciente.nombre,
+          "Telefono": paciente.telefono,
+          "Direccion": paciente.direccion,
+          "Correo": paciente.email,
+          "telegramUser": paciente.username,
+          "Psicologo": sessionStorage.getItem("id")
+        });
+
+        var requestOptions = {
+          method: 'POST',
+          headers: myHeaders,
+          body: raw,
+          redirect: 'follow'
+        };
+
+        fetch("https://3001-rose-haddock-94adoe3x.ws-us27.gitpod.io/api/crearPaciente", requestOptions)
+          .then(response => response.text())
+          .then(result => {
+            console.log(result)
+            if (result == "Paciente creado") {
+              actions.lista_pacientes()
+            }
+          })
+          .catch(error => console.log('error', error));
       }
     },
   };

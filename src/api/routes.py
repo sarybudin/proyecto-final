@@ -34,6 +34,33 @@ def newUser():
         db.session.commit()
         return "Psicologo creado", 200
 
+@api.route('/crearPaciente', methods=['POST'])
+def newPacient():
+    body = request.get_json()
+    exists = db.session.query(Paciente).filter_by(username=body["telegramUser"]).first() is not None
+    if exists == True:
+        response_body = {
+            "message": "El paciente ya existe"
+        }
+    elif exists == False:
+        nombre = body["Nombre"]
+        telefono = body["Telefono"]
+        direccion = body["Direccion"]
+        email = body["Correo"]
+        telegramUser = body["telegramUser"]
+        psicologo = body["Psicologo"]
+        newPaciente = Paciente(
+        psicologo_id = psicologo,
+        nombre = nombre,
+        telefono = telefono,
+        direccion = direccion,
+        email = email,
+        username = telegramUser
+        )
+        db.session.add(newPaciente)
+        db.session.commit()
+        return "Paciente creado", 200
+
 @api.route('/login', methods=["POST"])
 def login():
     if request.method == "POST":
@@ -43,9 +70,11 @@ def login():
         if userExists:
             if userExists.password == body["Password"]:
                 time = datetime.timedelta(minutes=20)
+                userId = userExists.id
+                nombre = userExists.nombre
                 access_token = create_access_token(identity=body["Email"], expires_delta=time)
                 response = {
-                    "email": body["Email"], "token":access_token, "expires_in": time.total_seconds(), "status": "ok"
+                    "email": body["Email"], "token":access_token, "expires_in": time.total_seconds(), "status": "ok", "user_id": userId, "nombre": nombre
                         }
                 return jsonify(response), 200
             else:

@@ -4,7 +4,7 @@ import "../../styles/formulario.css"
 
 const Formulario = (props) => {
     useEffect(() => {
-        console.log(props.paciente, 'TOY DENTRO DEL FORM')
+        //console.log(props.paciente, 'TOY DENTRO DEL FORM')
     }, [props.paciente])
     const handleInputChange = (e) => {
         props.setPaciente({
@@ -13,6 +13,7 @@ const Formulario = (props) => {
         })
         //e.preventDefault();
     }
+
     return (
         <form className="d-flex flex-column justify-content-center">
             <div>

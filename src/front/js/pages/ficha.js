@@ -67,6 +67,9 @@ export const Ficha = () => {
           <div className="informacion foto foto col-12 col-sm-12 col-md-8">
             <div className="titulo">
               <strong>Ficha del Paciente</strong>
+              <Link to={"/registros/"}>
+                <a href="" id="cerrarFicha"><i className="fas fa-window-close"></i></a>
+              </Link>
             </div>
             {store.editarFicha ? (
               <div className="cuerpo">
@@ -254,7 +257,7 @@ export const Ficha = () => {
                 <button
                   id="guardarToDo"
                   type="button"
-                  className="btn btn-outline-secondary"
+                  className="btn"
                   onClick={(e) =>
                     actions.addHistorico(store.anotacion, store.ficha?.id)
                   }
@@ -265,21 +268,19 @@ export const Ficha = () => {
               <div>
                 {store.anotaciones.map((value, key) => (
                   <div key={key}>
-                    <div className="row">
-                      <div className="col-12 col-sm-12 col-md-10">
-                        {value.anotacion}
-                      </div>
-                      <div className="col-12 col-sm-12 col-md-2 text-end">
-                        <button
-                          type="button"
-                          className="btn btn-outline-danger"
-                          onClick={(e) =>
-                            actions.eliminarHistorial(value.id, store.ficha?.id)
-                          }
-                        >
-                          <i className="fa fa-trash text-danger" />
-                        </button>
-                      </div>
+
+                    <div className="row note mb-1 px-4 py-1 d-flex justify-content-between align-items-center">
+                      {value.anotacion}
+                      <button
+                        id="deleteNote"
+                        type="button"
+                        className="btn btn-outline-danger btn-sm"
+                        onClick={(e) =>
+                          actions.eliminarHistorial(value.id, store.ficha?.id)
+                        }
+                      >
+                        <i className="fa fa-trash text-danger" />
+                      </button>
                     </div>
                   </div>
                 ))}

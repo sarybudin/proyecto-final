@@ -16,6 +16,8 @@
   color: #ff9f1c;
   text-shadow: 1px 1px 1px #000000;
   font-weight: bold;
+  border-top-left-radius: 9px;
+  border-top-right-radius: 9px;
 }
 .ficha {
   border: solid 1px #2ec4b6;
@@ -74,6 +76,7 @@ pre span {
   width: 50%;
 }
 .lista {
+  border-radius: 10px;
   border: solid 1px #2ec4b6;
   padding: 0px;
   background-color: white;
@@ -85,6 +88,13 @@ pre span {
 }
 .lista-head input {
   width: 80%;
+}
+
+#cerrarFicha {
+  float: right;
+  margin-right: 10px;
+  color: white;
+  text-decoration: none;
 }
 .body {
   padding: 20px;
@@ -120,12 +130,22 @@ pre span {
 }
 
 #guardarToDo {
+  height: 40px;
   color: white;
   background-color: #2ec4b6;
   border: 2px #ff9f1c solid;
-  font-size: 20px;
+  font-size: 18px;
 
   text-shadow: 1px 1px 2px #000000;
+}
+
+.note {
+  border-bottom: 1px #2ec4b6 solid;
+  padding-bottom: 5px;
+}
+
+#deleteNote {
+  width: 50px;
 }
 
 .buttonDiv {
@@ -134,6 +154,7 @@ pre span {
 }
 
 button {
+  border-radius: 4px;
   color: white;
   background-color: #2ec4b6;
   border: 2px #ff9f1c solid;

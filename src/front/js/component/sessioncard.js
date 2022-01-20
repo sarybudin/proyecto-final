@@ -60,7 +60,6 @@ export const SessionCard = (props) => {
           >
             {props.loginButton}
           </Button>
-
           <hr></hr>
           <NewUserModal />
         </Form>

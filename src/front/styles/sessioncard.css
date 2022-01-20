@@ -40,9 +40,12 @@ a {
 }
 
 hr {
+  border: 0;
+  clear: both;
+  display: block;
   width: 96%;
-  background-color: #2ec4b6;
-  height: 2px;
+  background-color: #ffff00;
+  height: 1px;
 }
 
 #forgot {

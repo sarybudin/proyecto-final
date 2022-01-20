@@ -42,14 +42,17 @@ const Lista = () => {
                     </thead>
                     <tbody>
                         {
-                            store.listaPacientes.map((paciente, key, id) => (
-                                <tr>
-                                    <td key={key}> {paciente.nombre} </td>
-                                    <td> {paciente.diagnostico}</td>
-                                    <td><Link to={`/ficha/${store.listaPacientes[key].id}`}><Button id="verFicha">Ver Ficha</Button></Link></td>
-                                    <td><Link to={`/graficos/${store.listaPacientes[key].id}`}><Button id="verEstadistica">Ver Estadísticas</Button></Link></td>
-                                </tr>
-                            ))}
+                            store.listaPacientes.map((paciente, key) => {
+                                if (sessionStorage.getItem("id") == store.listaPacientes[key].psicologo_id) {
+                                    return (<tr>
+                                        <td key={key}> {paciente.nombre} </td>
+                                        <td> {paciente.diagnostico}</td>
+                                        <td><Link to={`/ficha/${store.listaPacientes[key].id}`}><Button id="verFicha">Ver Ficha</Button></Link></td>
+                                        <td><Link to={`/graficos/${store.listaPacientes[key].id}`}><Button id="verEstadistica">Ver Estadísticas</Button></Link></td>
+                                    </tr>)
+                                }
+
+                            })}
                     </tbody>
                 </Table>
 
