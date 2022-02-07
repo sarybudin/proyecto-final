@@ -96,7 +96,7 @@ export const Graficos = () => {
             </Link>
           </div>
           <div className="body">
-            <div>
+            <div className="container-lg row d-flex">
               <Bar
                 options={optionsBar}
                 data={{
@@ -123,6 +123,7 @@ export const Graficos = () => {
             </div>
             <div>
               <Pie
+                className="img-fluid"
                 data={{
                   labels: ["😃: Alegre", "😐: Regular", "😞: Triste"],
                   datasets: [
@@ -138,7 +139,7 @@ export const Graficos = () => {
               />
             </div>
           </div>
-          <div className="details">
+          <div className="details row">
             <ul>
               <li>😃: Alegre</li>
               <li>😐: Regular</li>

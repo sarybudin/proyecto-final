@@ -13,16 +13,17 @@ const Doctor = () => {
     const handleShow = () => setShow(true)
 
     return (
-        <div className="container-full">
+        <div className="container-full container-md">
             <div className="row d-flex mb-2">
-                <div className="col-10">
+                <div className="col-lg">
                     <h2 id="registroTitle">
                         AniBot le da la bienvenida, Dr. {sessionStorage.getItem("nombre")}
 
                     </h2>
                 </div>
-                <div className="col-2">
+                <div className="col-sm">
                     <Button id="logOut"
+                        className="btn btn-sm"
                         onClick={() => { actions.cerrarSesion(history) }}>
                         Cerrar Sesion
                     </Button>

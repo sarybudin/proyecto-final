@@ -13,16 +13,17 @@ const getState = ({ getStore, getActions, setStore }) => {
       user: { id: "", nombre: "" }
     },
     actions: {
-      crearUsuario: (nombre, correo, clave, telefono, direccion) => {
+      crearUsuario: (data) => {
+        console.log("Me llamaron")
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-          Nombre: nombre,
-          Telefono: telefono,
-          Direccion: direccion,
-          Correo: correo,
-          Password: clave,
+          Nombre: data.nombre,
+          Telefono: data.telefono,
+          Direccion: data.direccion,
+          Correo: data.correo,
+          Password: data.clave,
         });
 
         var requestOptions = {

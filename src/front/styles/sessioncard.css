@@ -8,9 +8,8 @@ form {
 .loginInput {
   width: 90%;
 }
-
 a {
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 #newUserButton {

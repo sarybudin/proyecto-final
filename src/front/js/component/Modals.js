@@ -1,11 +1,12 @@
 import Formulario from "./Formulario";
 import React, { useContext, useState } from "react";
 import { Button, Modal } from 'react-bootstrap';
+import { useForm } from "react-hook-form"
 import { Context } from '../store/appContext'
 
 function Modals() {
     const { store, actions } = useContext(Context);
-
+    const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);

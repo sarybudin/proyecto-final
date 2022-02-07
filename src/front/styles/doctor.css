@@ -8,13 +8,16 @@
   box-shadow: 0px 0px 15px 5px #ff9f1c;
 }
 
+#logOut {
+  float: right;
+}
+
 #logOut,
 #verFicha,
 #verEstadistica {
   background-color: #2ec4b6;
   border: 2px #ff9f1c solid;
   text-shadow: 1px 1px 4px #000000;
-  font-size: 16px;
 }
 
 #listTitle,
@@ -29,7 +32,6 @@
   background-color: #2ec4b6;
   border: 2px #ff9f1c solid;
   text-shadow: 1px 1px 4px #000000;
-  font-size: 20px;
 }
 
 #listTitle {
