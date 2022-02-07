@@ -1,7 +1,3 @@
-.session-body {
-  height: 22rem;
-}
-
 #inputArea {
   text-align: center;
 }
@@ -10,11 +6,7 @@ form {
   width: 90%;
 }
 .loginInput {
-  margin: 15px 5px 8px 5px;
-}
-
-.logininput:invalid {
-  border-color: red;
+  width: 90%;
 }
 
 a {
@@ -22,21 +14,15 @@ a {
 }
 
 #newUserButton {
-  margin-top: 8px;
   background-color: #2ec4b6;
   border: 2px #ff9f1c solid;
   text-shadow: 1px 1px 4px #000000;
-  font-size: 20px;
 }
 
 #loginButton {
-  color: white;
-  margin-top: 10px;
   background-color: #2ec4b6;
   border: 2px #ff9f1c solid;
   text-shadow: 1px 1px 4px #000000;
-  font-size: 20px;
-  width: 50%;
 }
 
 hr {

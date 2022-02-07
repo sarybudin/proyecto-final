@@ -22,47 +22,38 @@ export const SessionCard = (props) => {
   return (
     <Card className="session-body">
       <CardBody className="d-flex align-items-center flex-column">
-        <Form>
-          <FormGroup>
-            <Input
-              className="loginInput"
-              id="userEmail"
-              name="email"
-              placeholder="Correo electrónico"
-              type="email"
-              onChange={(e) => {
-                setCorreo(e.target.value)
-              }}
-            />
-          </FormGroup>
-          <FormGroup>
-            <Input
-              className="loginInput"
-              id="userPassword"
-              name="password"
-              placeholder="Contraseña"
-              type="password"
-              onChange={(e) => setClave(e.target.value)}
-            />
-          </FormGroup>
-          <Button
-            id="loginButton"
-            onClick={() => {
-              validacion(correo, clave);
-              if (validado == true) {
-                //console.log("datos validados")
-                actions.iniciarSesion(correo, clave, history);
-              }
-              else {
-                alert("Por favor, ingrese su Correo y Contraseña")
-              }
-            }}
-          >
-            {props.loginButton}
-          </Button>
-          <hr></hr>
-          <NewUserModal />
-        </Form>
+        <Input
+          className="loginInput mb-2"
+          id="userEmail"
+          name="email"
+          placeholder="Correo electrónico"
+          type="email"
+          onChange={(e) => setCorreo(e.target.value)}
+        />
+        <Input
+          className="loginInput mb-3"
+          id="userPassword"
+          name="password"
+          placeholder="Contraseña"
+          type="password"
+          onChange={(e) => setClave(e.target.value)}
+        />
+        <Button
+          className="btn btn-lg mb-2"
+          id="loginButton"
+          onClick={() => {
+            actions.iniciarSesion(correo, clave, history);
+          }}
+        >
+          {props.loginButton}
+        </Button>
+        <CardText>
+          <a href="" id="forgot">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </CardText>
+        <hr></hr>
+        <NewUserModal />
       </CardBody>
     </Card>
   );

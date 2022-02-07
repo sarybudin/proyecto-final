@@ -28,7 +28,7 @@ export const NewUserModal = () => {
 
   return (
     <div>
-      <Button onClick={toggle} id="newUserButton">
+      <Button onClick={toggle} className="btn btn-lg" id="newUserButton">
         Crear Usuario
       </Button>
       <Modal isOpen={modal} centered scrollable size="md">
