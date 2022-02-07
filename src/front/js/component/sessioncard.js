@@ -15,7 +15,7 @@ export const SessionCard = (props) => {
     <Card className="session-body">
       <CardBody className="d-flex align-items-center flex-column">
         <Input
-          className="loginInput"
+          className="loginInput mb-2"
           id="userEmail"
           name="email"
           placeholder="Correo electrónico"
@@ -23,7 +23,7 @@ export const SessionCard = (props) => {
           onChange={(e) => setCorreo(e.target.value)}
         />
         <Input
-          className="loginInput"
+          className="loginInput mb-3"
           id="userPassword"
           name="password"
           placeholder="Contraseña"
@@ -31,6 +31,7 @@ export const SessionCard = (props) => {
           onChange={(e) => setClave(e.target.value)}
         />
         <Button
+          className="btn btn-lg mb-2"
           id="loginButton"
           onClick={() => {
             actions.iniciarSesion(correo, clave, history);

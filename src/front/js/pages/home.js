@@ -11,9 +11,9 @@ export const Home = () => {
   const { store, actions } = useContext(Context);
 
   return (
-    <div className="container-fluid mt-3 mb-3 text-center">
-      <div className="container-fluid row d-flex justify-content-around mt-3">
-        <div className="d-flex col-5 align-items-center flex-column">
+    <div className="container-md mt-3 mb-3">
+      <div className="d-flex row justify-content-between">
+        <div className="d-flex col-md-6 flex-column text-center">
           <HorizontalCard
             title="¿Cómo se siente hoy?"
             text="Recibe a diario el estado de ánimo de tus pacientes"
@@ -30,8 +30,8 @@ export const Home = () => {
             image={card3}
           />
         </div>
-        
-        <div className="d-flex col-4 align-items-center">
+
+        <div className="d-flex col-xs-12 col-md-5 pull-left align-items-center justify-content-center">
           <SessionCard
             text="Aquí va el formulario de usuario y contraseña"
             loginButton="Iniciar Sesión"
