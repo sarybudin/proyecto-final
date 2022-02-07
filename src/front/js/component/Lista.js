@@ -3,9 +3,10 @@ import { Context } from "../store/appContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Container } from 'reactstrap';
 import "../../styles/doctor.css";
+import { useHistory } from "react-router-dom";
 
 const Lista = () => {
-
+    const history = useHistory();
     const { store, actions } = useContext(Context);
     useEffect(() => {
         actions.lista_pacientes()
@@ -38,7 +39,11 @@ const Lista = () => {
                                 <tr>
                                     <td key={key}> {paciente.nombre} </td>
                                     <td> {paciente.diagnostico}</td>
-                                    <td><Button color="primary">Ver Ficha</Button></td>
+                                    <td><Button color="primary" onClick={
+                                        ()=>{
+                                            history.push("/ficha/"+paciente.id);
+                                        }
+                                    }>Ver Ficha</Button></td>
                                 </tr>
                             ))}
                     </tbody>
