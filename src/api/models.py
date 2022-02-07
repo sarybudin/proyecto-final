@@ -1,5 +1,4 @@
 from flask_sqlalchemy import SQLAlchemy
-import datetime
 
 db = SQLAlchemy()
 
@@ -70,7 +69,7 @@ class Bot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     respuesta = db.Column(db.String(120), unique=False, nullable=False)
     paciente_id = db.Column(db.Integer,db.ForeignKey('paciente.id'))
-    fecha = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+    fecha = db.Column(db.DateTime, default=db.func.now())
     comentario = db.Column(db.String(120), unique=False, nullable=True)
     paciente = db.relationship("Paciente", back_populates="bot")
     

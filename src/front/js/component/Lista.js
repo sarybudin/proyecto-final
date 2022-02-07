@@ -6,9 +6,10 @@ import { Context } from "../store/appContext";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Table, Button, Container } from 'reactstrap';
 import "../../styles/doctor.css";
+import { useHistory } from "react-router-dom";
 
 const Lista = () => {
-
+    const history = useHistory();
     const { store, actions } = useContext(Context);
     const params = useParams();
     useEffect(() => {
