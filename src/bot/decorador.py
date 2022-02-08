@@ -5,7 +5,7 @@ import json, requests
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 
-bot = telebot.TeleBot("5063497991:AAEX_bLGzoIzyPkC2gWBU7kZsjIvuvM2Pds")
+bot = telebot.TeleBot("5249614943:AAGatbqzTLWCavbm8q6x893lv0Kml_SEcP4")
 
 username = ""
 global comment
@@ -25,6 +25,7 @@ def upload_info(username, emotion, comment, fecha):
         "fecha": fecha,
         "comentario": comment
     })
+    print(payload)
     headers = {
             'Content-Type': 'application/json'
     }

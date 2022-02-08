@@ -108,10 +108,16 @@ def botAll():
 @api.route('/bot', methods=['POST'])
 def addbot():
     body = request.get_json()
+    print("\n\n")
+    print(body)
+    print("\n\n")
     # SELECT * FROM PACIENTE WHERE username = body['username']
     paciente = Paciente.query.\
     filter(Paciente.username.like(body['username'])).\
     one()
+    print("\n\n")
+    print(paciente)
+    print("\n\n")
     if body != None:
         respuesta = body["respuesta"]
         paciente_id = paciente.id
