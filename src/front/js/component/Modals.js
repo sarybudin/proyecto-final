@@ -18,17 +18,6 @@ function Modals() {
         username: '',
         diagnostico: ''
     })
-    const [validado, setValidado] = useState(false)
-    const validacion = () => {
-        if (paciente.nombre != "" && paciente.email != "" && paciente.direccion != "" && paciente.telefono != "" && paciente.username != "") {
-            setValidado(true)
-            console.log(validado)
-        }
-        else {
-            alert("El único campo opcional es Diagnóstico")
-        }
-    }
-
 
     return (
         <>
@@ -43,26 +32,14 @@ function Modals() {
                 </Modal.Header>
                 <Modal.Body>
 
-                    <Formulario setPaciente={setPaciente} paciente={paciente}></Formulario>
+                    <Formulario
+                        setPaciente={setPaciente}
+                        paciente={paciente}
+                        onSubmit={handleSubmit((data) => { actions.crearPaciente(data) })}
+                    ></Formulario>
 
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
-                        Cerrar
-                    </Button>
-                    <Button variant="primary"
-                        onClick={() => {
-                            //                            actions.exampleFunction(paciente.nombre)
-                            validacion()
-                            if (validado == true) {
-                                actions.crearPaciente(paciente)
-                                handleClose()
-                            }
-                        }
-                        }>
-                        Crear Paciente
-                    </Button>
-                </Modal.Footer>
+
             </Modal>
         </>
     );

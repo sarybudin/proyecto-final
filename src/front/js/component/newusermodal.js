@@ -6,18 +6,10 @@ import "../../styles/newusermodal.css";
 import { Button, Modal, ModalBody, ModalHeader, ModalFooter, Label, Input, FormGroup } from "reactstrap";
 
 export const NewUserModal = () => {
-  //useEffect(() => validacion())
-  const { register, handleSubmit, watch, formState: { errors } } = useForm({ defaultValues: { nombre: "", correo: "", contraseña: "", telefono: "", direccion: "" } });
+  const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: { nombre: "", correo: "", contraseña: "", telefono: "", direccion: "" } });
   const { store, actions } = useContext(Context);
-  /*const [nombre, setNombre] = useState("");
-  const [correo, setCorreo] = useState("");
-  const [clave, setClave] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const [direccion, setDireccion] = useState("");*/
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
-
-  console.log(errors)
 
   return (
     <div>
@@ -27,61 +19,85 @@ export const NewUserModal = () => {
       <Modal isOpen={modal} centered scrollable size="md">
         <form onSubmit={handleSubmit((data) => { actions.crearUsuario(data) })}>
           <ModalHeader toggle={toggle}>Registro de Usuario</ModalHeader>
-          <ModalBody className="row d-flex justify-content-center">
-            <div className="col-3 d-flex flex-column">
-              <Label for="nombre">Nombre</Label>
-              <Label for="correo">Correo</Label>
-              <Label for="password1">Contraseña</Label>
-              <Label for="telefono">Teléfono</Label>
-              <Label for="direcion">Dirección</Label>
+          <ModalBody className="container">
+            <div className="row">
+              <Label for="nombre" className="col-3">Nombre</Label>
+              <div className="col-9 d-flex flex-column">
+                <input
+                  id="nombre"
+                  {...register("nombre", { required: "Campo obligatorio" })}
+                  placeholder="Nombre Completo"
+                  type="text"
+                  className="form-control"
+                />
+                <p className="errorText">{errors.nombre?.message}</p>
+              </div>
             </div>
-            <div className="col-9 d-flex flex-column">
-              <input
-                id="nombre"
-                {...register("nombre", { required: "Campo obligatorio" })}
-                placeholder="Nombre Completo"
-                type="text"
-              />
-              <span className="errorText">{errors.nombre?.message}</span>
-              <input
-                id="correo"
-                {...register("correo", { required: "Campo obligatorio" })}
-                placeholder="correo@email.com"
-                type="email"
-              />
-              <span className="errorText">{errors.correo?.message}</span>
-              <input
-                id="password1"
-                {...register("password1", { required: "Campo obligatorio", minLength: { value: 6, message: "Debe tener mínimo 6 caracteres" } })}
-                placeholder="Contraseña"
-                type="password"
-              />
-              <span className="errorText">{errors.password1?.message}</span>
-              <input
-                id="telefono"
-                {...register("telefono", { required: "Campo obligatorio", minLength: { value: 9, message: "Debe tener 9 caracteres" } })}
-                placeholder="Teléfono"
-                type="tel"
-              />
-              <span className="errorText">{errors.telefono?.message}</span>
-              <input
-                id="direccion"
-                {...register("direccion")}
-                placeholder="Dirección Comercial"
-                type="text"
-              />
-              <span className="errorText">{errors.direccion?.message}</span>
+            <div className="row">
+              <Label for="correo" className="col-3">Correo</Label>
+              <div className="col-9 d-flex flex-column">
+                <input
+                  id="correo"
+                  {...register("correo", { required: "Campo obligatorio" })}
+                  placeholder="correo@email.com"
+                  type="email"
+                  className="form-control"
+                />
+                <p className="errorText">{errors.correo?.message}</p>
+              </div>
             </div>
-
+            <div className="row">
+              <Label for="clave" className="col-3">Contraseña</Label>
+              <div className="col-9 d-flex flex-column">
+                <input
+                  id="clave"
+                  {...register("clave", { required: "Campo obligatorio", minLength: { value: 6, message: "Debe tener mínimo 6 caracteres" } })}
+                  placeholder="Contraseña"
+                  type="password"
+                  className="form-control"
+                />
+                <p className="errorText">{errors.clave?.message}</p>
+              </div>
+            </div>
+            <div className="row">
+              <Label for="telefono" className="col-3">Teléfono</Label>
+              <div className="col-9 d-flex flex-column">
+                <input
+                  id="telefono"
+                  {...register("telefono", { required: "Campo obligatorio", minLength: { value: 9, message: "Debe tener 9 caracteres" } })}
+                  placeholder="Teléfono"
+                  type="tel"
+                  className="form-control"
+                />
+                <p className="errorText">{errors.telefono?.message}</p>
+              </div>
+            </div>
+            <div className="row">
+              <Label for="direcion" className="col-3">Dirección</Label>
+              <div className="col-9 d-flex flex-column">
+                <input
+                  id="direccion"
+                  {...register("direccion")}
+                  placeholder="Dirección Comercial"
+                  type="text"
+                  className="form-control"
+                />
+                <p className="errorText">{errors.direccion?.message}</p>
+              </div>
+            </div>
           </ModalBody>
           <ModalFooter>
             <Button
               color="primary"
-              onSubmit={handleSubmit((data) => { actions.crearUsuario(data) })}
+              onSubmit={() => {
+
+                handleSubmit((data) => { actions.crearUsuario(data) });
+                toggle()
+              }}
             >
               Crear Usuario
             </Button>
-            <Button onClick={toggle} className="btn-danger">
+            <Button onClick={toggle} className="btn-secondary">
               Cancelar
             </Button>
           </ModalFooter>

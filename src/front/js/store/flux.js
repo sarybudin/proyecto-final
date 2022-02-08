@@ -14,7 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
     },
     actions: {
       crearUsuario: (data) => {
-        console.log("Me llamaron")
+        console.log("Estoy pasando esto: ", data)
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
@@ -33,9 +33,16 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: "follow",
         };
 
-        fetch(process.env.BACKEND_URL + "/api/newUser", requestOptions)
+        fetch("https://3001-rose-haddock-94adoe3x.ws-us30.gitpod.io/api/newUser", requestOptions)
           .then((response) => response.text())
-          .then((result) => console.log(result))
+          .then((result) => {
+            if (result == "Psicologo creado") {
+              alert("Usuario creado exitosamente")
+            }
+            else {
+              alert("Ocurrió un problema. Por favor, intente nuevamente.")
+            }
+          })
           .catch((error) => console.log("error", error));
       },
       iniciarSesion: (correo, clave, history) => {
@@ -319,18 +326,18 @@ const getState = ({ getStore, getActions, setStore }) => {
         alert("Hasta luego");
         history.push("/");
       },
-      crearPaciente: (paciente) => {
+      crearPaciente: (data) => {
         const store = getStore()
         const actions = getActions()
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-          "Nombre": paciente.nombre,
-          "Telefono": paciente.telefono,
-          "Direccion": paciente.direccion,
-          "Correo": paciente.email,
-          "telegramUser": paciente.username,
+          "Nombre": data.nombre,
+          "Telefono": data.telefono,
+          "Direccion": data.direccion,
+          "Correo": data.correo,
+          "telegramUser": data.username,
           "Psicologo": sessionStorage.getItem("id")
         });
 
@@ -341,7 +348,7 @@ const getState = ({ getStore, getActions, setStore }) => {
           redirect: 'follow'
         };
 
-        fetch("https://3001-rose-haddock-94adoe3x.ws-us27.gitpod.io/api/crearPaciente", requestOptions)
+        fetch("https://3001-rose-haddock-94adoe3x.ws-us30.gitpod.io/api/crearPaciente", requestOptions)
           .then(response => response.text())
           .then(result => {
             console.log(result)
